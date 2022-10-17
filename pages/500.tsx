@@ -7,8 +7,8 @@ export default function Custom500() {
       <Meta
         props={{
           ...defaultMetaProps,
-          title: '500 | MongoDB Starter Kit',
-          ogUrl: 'https://mongodb.vercel.app/500'
+          title: '500 | LN2EMAIL',
+          ogUrl: 'https://ln2.email/500'
         }}
       />
       <h1 className="text-2xl font-light text-white">

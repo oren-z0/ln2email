@@ -2,10 +2,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "yarn setup && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "setup": "NODE_OPTIONS='--experimental-json-modules' node ./scripts/setup.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.4",
@@ -20,12 +19,10 @@
     "mongodb": "^4.6.0",
     "next": "12.1.6",
     "next-auth": "^4.3.1",
-    "next-mdx-remote": "^4.0.3",
+    "nodemailer": "^6.8.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-textarea-autosize": "^8.3.4",
-    "remark": "^14.0.2",
-    "remark-mdx": "^2.1.1",
     "swr": "^2.0.0-beta.1"
   },
   "devDependencies": {

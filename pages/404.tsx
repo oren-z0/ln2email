@@ -7,8 +7,8 @@ export default function Custom404() {
       <Meta
         props={{
           ...defaultMetaProps,
-          title: '404 | MongoDB Starter Kit',
-          ogUrl: 'https://mongodb.vercel.app/404'
+          title: '404 | LN2EMAIL',
+          ogUrl: 'https://ln2.email/404'
         }}
       />
       <h1 className="text-2xl font-light text-white">
