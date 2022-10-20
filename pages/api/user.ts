@@ -9,9 +9,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'PUT') {
-    const { email, lightningAddress } = req.body;
+    const { lightningAddress } = req.body;
     const session = await getSession({ req });
-    if (!session || session.email !== email) {
+    if (!session || !session.user?.email) {
       return res.status(401).json({
         error: 'Unauthorized'
       });
@@ -26,7 +26,7 @@ export default async function handler(
       return res.status(422).end(`Unprocessable JSON Body`);
     }
     try {
-      await updateUser(email, lightningAddress);
+      await updateUser(session.user.email, lightningAddress);
       return res.status(200).json({});
     } catch (e: any) {
       console.log(e);

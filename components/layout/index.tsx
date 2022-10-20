@@ -5,18 +5,20 @@ import Meta, { MetaProps } from '@/components/layout/meta';
 import { useRouter } from 'next/router';
 import { LoadingDots } from '@/components/icons';
 
-export default function Layout({
-  meta,
-  results,
-  totalUsers,
-  children
-}: {
+export interface LayoutProps {
   meta: MetaProps;
   results: ResultProps[];
   totalUsers: number;
   username?: string;
   children: ReactNode;
-}) {
+}
+
+export default function Layout({
+  meta,
+  results,
+  totalUsers,
+  children
+}: LayoutProps) {
   const router = useRouter();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

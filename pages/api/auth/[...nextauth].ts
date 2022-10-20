@@ -14,8 +14,9 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, user }) {
-      session.userId = user.id;
-      session.userEmaileVerified = user.emailVerified;
+      Object.assign(session, {
+        userId: user.id,
+      });
       return session;
     }
   },
