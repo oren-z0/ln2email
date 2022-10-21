@@ -16,7 +16,14 @@ export async function getUser(email: string): Promise<UserProps | null> {
   const collection = client.db().collection('users');
   const results = await collection.findOne(
     { email },
-    { projection: { _id: 0 } }
+    {
+      projection: {
+        _id: 0,
+        email: 1,
+        emailVerified: 1,
+        lightningAddress: 1,
+      }
+    }
   );
   if (!results) {
     return null;
