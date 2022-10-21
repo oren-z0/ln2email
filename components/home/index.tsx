@@ -269,7 +269,7 @@ export default function Home() {
               }
             }}
             href={
-              session ? '/settings' : '/api/auth/signin'
+              session ? '/settings' : '/api/auth/signin?callbackUrl=%2Fauth-callback'
             }
           >
             {
