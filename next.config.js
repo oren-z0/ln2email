@@ -13,6 +13,19 @@ const nextConfig = {
   experimental: {
     legacyBrowsers: false,
     browsersListForSwc: true
+  },
+  async redirects() {
+    return [
+      {
+        source: '/((?!.well-known/).*)',
+        destination: 'https://ln2.email',
+        permanent: true,
+        has: [{
+          type: 'host',
+          value: '(.*\.ln2\.email)'
+        }]
+      }
+    ];
   }
 };
 
