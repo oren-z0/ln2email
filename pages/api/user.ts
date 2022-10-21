@@ -29,7 +29,7 @@ export default async function handler(
       await updateUser(session.user.email, lightningAddress);
       return res.status(200).json({});
     } catch (e: any) {
-      console.log(e);
+      console.error(e);
       return res.status(500).json({
         error: e.toString()
       });

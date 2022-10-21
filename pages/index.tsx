@@ -10,7 +10,8 @@ export const getStaticProps: GetStaticProps = async () => {
   try {
     await clientPromise;
   } catch (e: any) {
-    throw new Error(`Connection limit reached. Please try again later.`);
+    console.error(e);
+    throw new Error('Connection limit reached. Please try again later.');
   }
 
   return {
