@@ -1,82 +1,305 @@
-import { useState } from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import { LoadingDots } from '@/components/icons';
+import { signOut, useSession } from 'next-auth/react';
+import styled from 'styled-components';
+import { Fade } from 'react-awesome-reveal';
+import { TextLoop } from 'react-text-loop-next';
+import { media } from '@/lib/media';
 
-export const profileWidth = 'max-w-5xl mx-auto px-4 sm:px-6 lg:px-8';
+const Wrapper = styled.div`
+  display: flex;
+  padding: 30px 0;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border: 8px solid ${({ theme }) => theme.colors.primary};
+  ${media.tablet`
+    padding: 0;
+    min-height: 640px;
+    height: calc(100vh - 16px);
+  `}
+`;
 
-export interface HomeProps {
-  totalUsers: number;
-}
+const Title = styled.h1`
+  margin: 0 auto;
+  font-size: 38px;
+  max-width: 900px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -1px;
+  ${media.tablet`
+    padding: 0 20px;
+    font-size: 84px;
+    max-width: 900px;
+    font-weight: 800;
+    letter-spacing: -4px;
+  `}
+`;
 
-export default function Home({
-  totalUsers
-}: HomeProps) {
-  const [loading, setLoading] = useState(false);
+const Intro = styled.p`
+  color: #0070f3;
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 7px;
+  margin: 0 auto 20px auto;
+  background: rgba(0,118,255,0.1);
+  ${media.tablet`
+    margin: 30px auto 20px auto;
+    font-size: 18px;
+    max-width: 900px;
+    line-height: 1.6;
+  `}
+`;
+
+const Description = styled.p`
+  color: #666666;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 400;
+  padding: 0 30px;
+  text-align: center;
+  letter-spacing: -0.5px;
+  margin: 20px auto 10px auto;
+  ${media.tablet`
+    padding: 0;
+    font-size: 20px;
+    padding: 0 30px;
+    max-width: 600px;
+    line-height: 1.4;
+    letter-spacing: -1px;
+  `}
+`;
+
+const LoopRowTitle = styled.div`
+  word-break: break-all;
+  margin: 8px 8px 0 8px;
+  font-size: 18px;
+  ${media.tablet`
+    font-size: 24px;
+  `}
+`;
+
+const LoopRowWrapper = styled.div`
+  margin-top: 8px;
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FixedTextPart = styled.span`
+  font-size: 18px;
+  ${media.tablet`
+    font-size: 24px;
+  `}
+`;
+
+const LoopedTextPart = styled.span`
+  font-size: 18px;
+  ${media.tablet`
+    font-size: 24px;
+  `}
+`;
+
+const Link = styled.a`
+  color: #0070f3;
+  font-weight: 400;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  &:hover {
+    color: #0070f3;
+    border-color: transparent;
+  }
+`;
+
+const CTAWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto 20px auto;
+  ${media.tablet`
+    flex-direction: row;
+  `}
+`;
+
+const CTAPrimary = styled.a`
+  color: #fff;
+  height: 2.81rem;
+  cursor: pointer;
+  padding: 0;
+  width: 260px;
+  text-align: center;
+  margin: 0 0 10px 0;
+  border-radius: 7px;
+  line-height: 2.8rem;
+  text-decoration: none;
+  background-color: #0070f3;
+  box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+  &:hover {
+    background: rgba(0,118,255,0.9);
+    box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+  }
+  ${media.tablet`
+    margin: 0;
+  `}
+`;
+
+const CTASecondary = styled.a`
+  color: #696969;
+  cursor: pointer;
+  height: 2.81rem;
+  background: #fff;
+  width: 260px;
+  text-align: center;
+  padding: 0;
+  margin: 10px 0 0 0;
+  text-decoration: none;
+  line-height: 2.8rem;
+  border-radius: 7px;
+  box-shadow: 0 4px 14px 0 rgb(0 0 0 / 10%);
+  &:hover {
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 6px 20px rgb(93 93 93 / 23%);
+  }
+  ${media.tablet`
+    margin: 0 0 0 30px;
+  `}
+`;
+
+const FooterWrapper = styled.div`
+  display: flex;
+  margin: 20px 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+`;
+
+const FooterLink = styled.a`
+  padding: 8px;
+  color: #0070f3;
+  font-weight: 400;
+  border-radius: 7px;
+  text-decoration: none;
+  &:hover {
+    color: #0070f3;
+    background: rgba(0,118,255,0.1);
+  }
+`;
+
+const Bold = styled.span`
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-weight: 600;
+  padding-bottom: 5px;
+  letter-spacing: -0.5px;
+`;
+
+export default function Home() {
   const { data: session, status } = useSession();
 
   return (
-    <div className="min-h-screen pb-20">
-      <div>
-        <div
-          className="h-48 w-full lg:h-64"
-        />
-        <div
-          className={`${profileWidth} -mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5`}
-        >
-          <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-            <div className="flex min-w-0 flex-1 items-center space-x-2">
-              <h1 className="text-2xl font-semibold text-white truncate">
-                Map your email address to your lightning wallet.
-              </h1>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className={`${profileWidth} mt-16`}>
+    <Wrapper>
+      <Fade triggerOnce direction="up" cascade delay={500}>
+        <Intro>Under Construction</Intro>
+        <Title>Lightning to Email</Title>
+      </Fade>
+      <Fade triggerOnce direction="up" delay={900}>
+        <Description>
+          <Bold>Accept Bitcoin payments via your email address + &quot;.ln2.email&quot;.</Bold>
+          A massively simpler way to switch between lightning wallets,
+          without changing your{' '}
+          <Link href="https://lightningaddress.com" target="_blank" rel="noreferrer noopener">
+            lightning address
+          </Link>.
+        </Description>
+      </Fade>
+      <Fade triggerOnce direction="up" delay={1300}>
+        <LoopRowTitle>
+          Forward payments from:
+        </LoopRowTitle>
         {
-          status !== 'loading' && (
-            session?.user ? (
-              <article className="mt-3 max-w-2xl text-sm tracking-wider leading-6 text-white font-mono prose prose-headings:text-white prose-a:text-white">
-                Logged in as {session.user.email}
-                <button
-                  disabled={loading}
-                  onClick={() => {
-                    setLoading(true);
-                    signOut();
-                  }}
-                  className={`${
-                    loading
-                      ? 'bg-gray-200 border-gray-300'
-                      : 'bg-black hover:bg-white border-black'
-                  } w-36 h-8 py-1 text-white hover:text-black border rounded-md text-sm transition-all`}
-                >
-                  {loading ? <LoadingDots color="gray" /> : 'Logout'}
-                </button>
-              </article>
-            ) : (
-              <button
-                disabled={loading}
-                onClick={() => {
-                  setLoading(true);
-                  signIn('email', { callbackUrl: '/profile', email: process.env.NEXT_PUBLIC_DEFAULT_EMAIL });
-                }}
-                className={`${
-                  loading
-                    ? 'bg-gray-200 border-gray-300'
-                    : 'bg-black hover:bg-white border-black'
-                } w-36 h-8 py-1 text-white hover:text-black border rounded-md text-sm transition-all`}
-              >
-                {loading ? <LoadingDots color="gray" /> : 'Log in with Email'}
-              </button>
-            )
+          session?.user?.email ? (
+            <LoopRowTitle>
+              {session.user.email}.ln2.email
+            </LoopRowTitle>
+          ) : (
+            <LoopRowWrapper>
+              <FixedTextPart>you@</FixedTextPart>
+              <TextLoop interval={3000} delay={1600}>
+                <LoopedTextPart>gmail.com</LoopedTextPart>
+                <LoopedTextPart>protonmail.com</LoopedTextPart>
+                <LoopedTextPart>hotmail.com</LoopedTextPart>
+                <LoopedTextPart>icloud.com</LoopedTextPart>
+              </TextLoop>
+              <FixedTextPart>.ln2.email</FixedTextPart>
+            </LoopRowWrapper>
           )
         }
-      </div>
-      <div className="flex justify-end w-full max-w-2xl">
-        <p className="text-gray-400 font-mono text-sm">
-          Total Users: {totalUsers}
-        </p>
-      </div>
-    </div>
+        <LoopRowTitle>
+          to:
+        </LoopRowTitle>
+        <LoopRowWrapper>
+          <TextLoop interval={3000} delay={1600}>
+            <LoopedTextPart>spiderman@zbd.gg</LoopedTextPart>
+            <LoopedTextPart>deadpool@lntxbot.com</LoopedTextPart>
+            <LoopedTextPart>hannibal@zebedee.io</LoopedTextPart>
+            <LoopedTextPart>darthvader@coinos.io</LoopedTextPart>
+            <LoopedTextPart>batman@ln.tips</LoopedTextPart>
+            <LoopedTextPart>gladiator@coincorner.io</LoopedTextPart>
+            <LoopedTextPart>guyfawkes@bitrefill.me</LoopedTextPart>
+            <LoopedTextPart>shredder@fbtc.me</LoopedTextPart>
+            <LoopedTextPart>ironman@lnmarkets.com</LoopedTextPart>
+            <LoopedTextPart>westley@getalby.com</LoopedTextPart>
+            <LoopedTextPart>zorro@walletofsatoshi.com</LoopedTextPart>
+            <LoopedTextPart>scorpion@sparkwallet.me</LoopedTextPart>
+            <LoopedTextPart>rorschach@getmash.cash</LoopedTextPart>
+            <LoopedTextPart>theloneranger@8333.mobi</LoopedTextPart>
+            <LoopedTextPart>greenlantern@starbackr.me</LoopedTextPart>
+          </TextLoop>
+        </LoopRowWrapper>
+      </Fade>
+      <Fade triggerOnce direction="up" delay={1700}>
+        <CTAWrapper>
+          <CTAPrimary
+            style={{
+              ...(status === 'loading') && {
+                visibility: 'hidden'
+              }
+            }}
+            href={
+              session ? '/settings' : '/api/auth/signin'
+            }
+          >
+            {
+              session ? 'Go to Settings' : 'Sign in'
+            }
+          </CTAPrimary>
+          {
+            session && (
+              <CTASecondary
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sign out
+              </CTASecondary>
+            )
+          }
+        </CTAWrapper>
+        <FooterWrapper>
+          <FooterLink
+            href="https://github.com/oren-z0/ln2email"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            GitHub
+          </FooterLink>
+        </FooterWrapper>
+      </Fade>
+    </Wrapper>
   );
 }

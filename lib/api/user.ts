@@ -28,12 +28,6 @@ export async function getUser(email: string): Promise<UserProps | null> {
   };
 }
 
-export async function getUserCount(): Promise<number> {
-  const client = await clientPromise;
-  const collection = client.db().collection('users');
-  return await collection.countDocuments();
-}
-
 export async function updateUser(email: string, lightningAddress?: string) {
   const client = await clientPromise;
   const collection = client.db().collection('users');

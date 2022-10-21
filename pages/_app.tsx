@@ -2,9 +2,16 @@ import '@/styles/globals.css';
 import { AppProps } from 'next/app';
 import { Session } from "next-auth";
 import { SessionProvider } from 'next-auth/react';
-import Layout, { LayoutProps } from '@/components/layout';
+import { ThemeProvider } from 'styled-components';
+import Layout from '@/components/layout';
 
-interface MyAppProps extends LayoutProps {
+const theme = {
+  colors: {
+    primary: 'rgba(0,118,255,0.9)',
+  },
+};
+
+interface MyAppProps {
   session: Session;
 }
 
@@ -13,10 +20,14 @@ export default function MyApp({
   pageProps: { session, ...pageProps }
 }: AppProps<MyAppProps>) {
   return (
-    <SessionProvider session={session}>
-      <Layout {...pageProps}>
-        <Component {...pageProps} />
-      </Layout>
-    </SessionProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <SessionProvider session={session}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SessionProvider>
+      </ThemeProvider>
+    </>
   );
 }

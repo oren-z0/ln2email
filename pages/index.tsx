@@ -1,13 +1,9 @@
 import { GetStaticProps } from 'next';
-import Home, { HomeProps } from '@/components/home';
-import {
-  getUserCount
-} from '@/lib/api/user';
-import { defaultMetaProps } from '@/components/layout/meta';
+import Home from '@/components/home';
 import clientPromise from '@/lib/mongodb';
 
-export default function Index({ totalUsers }: HomeProps) {
-  return <Home totalUsers={totalUsers} />;
+export default function Index() {
+  return <Home />;
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -17,13 +13,8 @@ export const getStaticProps: GetStaticProps = async () => {
     throw new Error(`Connection limit reached. Please try again later.`);
   }
 
-  const totalUsers = await getUserCount();
-
   return {
-    props: {
-      meta: defaultMetaProps,
-      totalUsers
-    },
+    props: {},
     revalidate: 10
   };
 };
