@@ -4,6 +4,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
+  background: #fafafa;
 }
 ::selection {
   background-color: rgba(0,118,255,0.9);

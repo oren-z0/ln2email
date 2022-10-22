@@ -6,6 +6,7 @@ import { media } from '@/lib/media';
 
 const Wrapper = styled.div`
   display: flex;
+  background: #fff;
   padding: 30px 0;
   align-items: center;
   flex-direction: column;

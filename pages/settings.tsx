@@ -2,13 +2,15 @@ import { GetServerSideProps } from 'next';
 import clientPromise from '@/lib/mongodb';
 import { getSession } from 'next-auth/react';
 import { getUser, UserProps } from '@/lib/api/user';
+import UserSettings from '@/components/user-settings';
+
 
 interface SettingsProps {
   user: UserProps;
 }
 
 export default function Settings({ user }: SettingsProps) {
-  return <div>Hello {JSON.stringify(user)}</div>;
+  return <UserSettings user={user} />
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
