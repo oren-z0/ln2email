@@ -50,6 +50,9 @@ const UserSettingsCardGrid = styled.div`
   display: flex;
   padding: 10px 0;
   flex-direction: column;
+  ${media.tablet`
+    width: 540px;
+  `}
 `;
 
 const UserSettingsCard = styled.div`
@@ -84,6 +87,7 @@ const UserSettingsCardDescription = styled.div`
   line-height: 1.4;
   font-weight: 400;
   text-align: left;
+  margin-bottom: 8px;
 `;
 
 const LightningAddress = styled.span`
@@ -128,36 +132,78 @@ const CTASignout = styled.a`
 
 const CTAWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  margin: 10px auto;
+  margin: 0 auto 0 0;
+  flex-direction: row;
+`;
 
-  ${media.tablet`
-    margin: 20px auto;
-    flex-direction: row;
-  `}
+const LightningAddressInput = styled.input`
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 0.3rem;
+  box-shadow: inset 0 .1rem .2rem rgba(0,0,0,.2);
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  &:focus {
+    box-shadow: none;
+  }
+`;
+
+const LightningAddressInputSublabel = styled.div`
+  color: #555;
+  font-size: 11px;
+  padding: 0 5px;
+  line-height: 1.2;
+  font-weight: 400;
+  text-align: left;
+  margin: 2px 0 8px 0;
+  width: 100%;
 `;
 
 const CTAPrimary = styled.button`
   color: #fff;
   cursor: pointer;  
   padding: 0;
-  width: 200px;
+  width: 80px;
   text-align: center;
-  margin: 0 0 10px 0;
+  margin: 0 10px 0 0;
   border-radius: 7px;
-  height: 2.41rem;
-  font-size: 0.875em;  
+  height: 2.1rem;
+  font-size: 0.875em;
   text-decoration: none;
-  background-color: #0070f3;
+  background: #0070f3;
   border: 0;
 
   &:hover {
     background: rgba(0,118,255,0.9);
     box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
   }
-
   ${media.tablet`
-    margin: 0 15px 0 0;
+    height: 2.3rem;
+    font-size: 0.75em;
+  `}
+`;
+
+const CTASecondary = styled.button`
+  color: #fff;
+  cursor: pointer;  
+  padding: 0;
+  width: 80px;
+  text-align: center;
+  margin: 0 10px 0 0;
+  border-radius: 7px;
+  height: 2.1rem;
+  font-size: 0.875em;
+  text-decoration: none;
+  background: #707070;
+  border: 0;
+  &:hover {
+    background: rgba(112,112,112,0.9);
+    box-shadow: 0 6px 20px rgb(112 112 112 / 23%);
+  }
+  ${media.tablet`
+    height: 2.3rem;
+    font-size: 0.75em;
   `}
 `;
 
@@ -191,8 +237,13 @@ export default function UserSettings({ user }: UserSettingsProps) {
             <LightningAddress>{user.email}.ln2.email</LightningAddress>
             {' '}will be forwarded to:
           </UserSettingsCardDescription>
+          <LightningAddressInput type="email" />
+          <LightningAddressInputSublabel>
+            Leave empty to block all payment attempts
+          </LightningAddressInputSublabel>
           <CTAWrapper>
             <CTAPrimary>Save</CTAPrimary>
+            <CTASecondary>Reset</CTASecondary>
           </CTAWrapper>
         </UserSettingsCard>
       </UserSettingsCardGrid>
