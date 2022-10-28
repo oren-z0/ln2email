@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import { media } from '@/lib/media';
@@ -56,7 +58,7 @@ const UserSettingsCardGrid = styled.div`
 `;
 
 const UserSettingsCard = styled.div`
-  padding: 20px 10px;
+  padding: 20px 20px;
   display: flex;
   margin: 0 10px 20px 10px;
   background: #fff;
@@ -143,7 +145,7 @@ const LightningAddressInput = styled.input`
   box-shadow: inset 0 .1rem .2rem rgba(0,0,0,.2);
   box-sizing: border-box;
   font-size: 1rem;
-  padding: .5rem 1rem;
+  padding: .5rem .8rem;
   &:focus {
     box-shadow: none;
   }
@@ -161,8 +163,8 @@ const LightningAddressInputSublabel = styled.div`
 `;
 
 const CTAPrimary = styled.button`
-  color: #fff;
-  cursor: pointer;  
+  color: ${(props) => props.disabled ? 'rgba(0,0,0,0.26)' : '#fff'};
+  ${(props) => props.disabled ? '' : 'cursor: pointer;'}
   padding: 0;
   width: 80px;
   text-align: center;
@@ -171,13 +173,13 @@ const CTAPrimary = styled.button`
   height: 2.1rem;
   font-size: 0.875em;
   text-decoration: none;
-  background: #0070f3;
+  background-color: ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : '#0070f3'};
   border: 0;
 
-  &:hover {
-    background: rgba(0,118,255,0.9);
+  ${(props) => props.disabled ? '' : `&:hover {
+    background-color: rgba(0,118,255,0.9);
     box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
-  }
+  }`}
   ${media.tablet`
     height: 2.3rem;
     font-size: 0.75em;
@@ -185,8 +187,8 @@ const CTAPrimary = styled.button`
 `;
 
 const CTASecondary = styled.button`
-  color: #fff;
-  cursor: pointer;  
+  color: ${(props) => props.disabled ? 'rgba(0,0,0,0.26)' : '#0070f3'};
+  ${(props) => props.disabled ? '' : 'cursor: pointer;'}
   padding: 0;
   width: 80px;
   text-align: center;
@@ -195,23 +197,67 @@ const CTASecondary = styled.button`
   height: 2.1rem;
   font-size: 0.875em;
   text-decoration: none;
-  background: #707070;
-  border: 0;
-  &:hover {
-    background: rgba(112,112,112,0.9);
-    box-shadow: 0 6px 20px rgb(112 112 112 / 23%);
-  }
+  background-color: rgba(0,0,0,0);
+  border: 1px solid ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : '#0070f3'};
+  ${(props) => props.disabled ? '' : `&:hover {
+    box-shadow: inset 0 6px 20px rgb(0 118 255 / 23%);
+  }`}
   ${media.tablet`
     height: 2.3rem;
     font-size: 0.75em;
   `}
 `;
 
+const toastOptions = {
+  duration: 4000
+};
+
 export interface UserSettingsProps {
   user: UserProps;
 }
 
 export default function UserSettings({ user }: UserSettingsProps) {
+  const [loading, setLoading] = useState(false);
+  const [
+    savedTargetLightningAddress, setSavedTargetLightningAddress
+  ] = useState(user.lightningAddress ?? '');
+  const [
+    targetLightningAddress, setTargetLightningAddress
+  ] = useState(user.lightningAddress ?? '');
+
+  const resetTargetLightningAddress = () => {
+    setTargetLightningAddress(savedTargetLightningAddress);
+  };
+
+  const saveTargetLightningAddress = async () => {
+    setLoading(true);
+    try {
+      const fetchResponse = await fetch('/api/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ lightningAddress: targetLightningAddress })
+      });
+      const fetchResponseJson: { reason?: string } = await fetchResponse.json();
+      if (!fetchResponse.ok) {
+        toast.error(fetchResponseJson.reason ?? 'Unexpected error', toastOptions);
+        setTargetLightningAddress(savedTargetLightningAddress);
+        return;
+      }
+      toast.success('Lightning address saved successfully', toastOptions);
+      setSavedTargetLightningAddress(targetLightningAddress);
+    } catch (error) {
+      console.error('Failed to update target lightning address', error);
+      toast.error('Unexpected error', toastOptions);
+      setTargetLightningAddress(savedTargetLightningAddress);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const ctaDisabled = loading || (savedTargetLightningAddress === targetLightningAddress);
+
   return (
     <UserSettingsModule>
       <SignoutWrapper>
@@ -237,16 +283,33 @@ export default function UserSettings({ user }: UserSettingsProps) {
             <LightningAddress>{user.email}.ln2.email</LightningAddress>
             {' '}will be forwarded to:
           </UserSettingsCardDescription>
-          <LightningAddressInput type="email" />
+          <LightningAddressInput
+            type="email"
+            disabled={loading}
+            maxLength={320}
+            value={targetLightningAddress}
+            onChange={(event) => setTargetLightningAddress(event.target.value)}
+          />
           <LightningAddressInputSublabel>
             Leave empty to block all payment attempts
           </LightningAddressInputSublabel>
           <CTAWrapper>
-            <CTAPrimary>Save</CTAPrimary>
-            <CTASecondary>Reset</CTASecondary>
+            <CTAPrimary
+              onClick={saveTargetLightningAddress}
+              disabled={ctaDisabled}
+            >
+              { loading ? 'Saving...' : 'Save' }
+            </CTAPrimary>
+            <CTASecondary
+              onClick={resetTargetLightningAddress}
+              disabled={ctaDisabled}
+            >
+              Reset
+            </CTASecondary>
           </CTAWrapper>
         </UserSettingsCard>
       </UserSettingsCardGrid>
+      <Toaster />
     </UserSettingsModule>
   );
 }
