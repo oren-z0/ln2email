@@ -9,21 +9,24 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'PUT') {
-    const { lightningAddress } = req.body;
+    const { lightningAddress } = req.body || {};
     const session = await getSession({ req });
     if (!session || !session.user?.email) {
       return res.status(401).json({
         error: 'Unauthorized'
       });
     }
-    if (
-      (lightningAddress !== undefined) &&
-      (
-        (typeof lightningAddress !== 'string') ||
-        (lightningAddress.length > maxLightningAddressLength)
-      )
-    ) {
-      return res.status(422).end(`Unprocessable JSON Body`);
+    if (typeof lightningAddress === 'string') {
+      if (lightningAddress.length > maxLightningAddressLength) {
+        return res.status(422).json({ reason: 'Update failed: Lightning address is too long' });
+      }
+      const lightningParts = lightningAddress.split('@');
+      if (lightningParts.length !== 2) {
+        return res.status(422).json({ reason: 'Update failed: Malformed lightning address' });
+      }
+      // TODO: send a GET to verify that lightning address is valid
+    } else if (lightningAddress !== undefined) {
+      return res.status(422).json({ reason: 'Update failed: Unprocessable JSON Body' });
     }
     try {
       await updateUser(session.user.email, lightningAddress);
@@ -31,9 +34,11 @@ export default async function handler(
     } catch (e: any) {
       console.error(e);
       return res.status(500).json({
-        error: e.toString()
+        reason: 'Update failed: Internal error'
       });
     }
   }
-  return res.status(405).end(`Method ${req.method} Not Allowed`);
+  return res.status(405).json({
+    reason: 'Method not allowed'
+  });
 }
