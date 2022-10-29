@@ -299,6 +299,13 @@ export default function Home() {
           >
             GitHub
           </FooterLink>
+          <FooterLink
+            href="https://twitter.com/ln2email"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Twitter
+          </FooterLink>
         </FooterWrapper>
       </Fade>
     </Wrapper>
