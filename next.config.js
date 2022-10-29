@@ -14,6 +14,14 @@ const nextConfig = {
     legacyBrowsers: false,
     browsersListForSwc: true
   },
+  async rewrites() {
+    return [
+      {
+        source: '/.well-known/lnurlp/:path*',
+        destination: '/api/well-known/lnurlp/:path*'
+      }
+    ];
+  },
   async redirects() {
     return [
       {
