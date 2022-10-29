@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { updateUser } from 'lib/api/user';
+import { updateUser } from '@/lib/api/user';
 import { getSession } from 'next-auth/react';
 import fetch from 'node-fetch';
 
