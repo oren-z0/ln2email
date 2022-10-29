@@ -10,3 +10,170 @@ body {
   background-color: rgba(0,118,255,0.9);
   color: #fff;
 }
+
+.signin-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+}
+.signin-page h1 {
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  color: #000;
+}
+.signin-page p {
+  color: #000;
+}
+.signin-page form {
+  margin: 0;
+  padding: 0;
+}
+.signin-page label {
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 0.25rem;
+  display: block;
+  color: #000;
+}
+.signin-page input[type] {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #bbb;
+  background: #fff;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+  box-shadow: inset 0 0.1rem 0.2rem rgba(0, 0, 0, 0.2);
+  color: #000;
+}
+.signin-page input[type]:focus {
+  box-shadow: none;
+}
+.signin-page p {
+  margin: 0 0 1.5rem 0;
+  padding: 0 1rem;
+  font-size: 1.1rem;
+  line-height: 2rem;
+}
+.signin-page a.button {
+  text-decoration: none;
+  line-height: 1rem;
+}
+.signin-page a.button:link, .signin-page a.button:visited {
+  background-color: #fff;
+  color: #444;
+}
+.signin-page button, .signin-page a.button {
+  margin: 0 0 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid #bbb;
+  color: #444;
+  background-color: #fff;
+  font-size: 1rem;
+  border-radius: 0.3rem;
+  transition: all 0.1s ease-in-out;
+  box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.15), inset 0 0.1rem 0.2rem #fff, inset 0 -0.1rem 0.1rem rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+  position: relative;
+}
+.signin-page button:hover, .signin-page a.button:hover {
+  cursor: pointer;
+}
+.signin-page button:active, .signin-page a.button:active {
+  box-shadow: 0 0.15rem 0.3rem rgba(0, 0, 0, 0.15), inset 0 0.1rem 0.2rem #fff, inset 0 -0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  border-color: #aaa;
+  cursor: pointer;
+}
+.signin-page a.site {
+  color: #444;
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+.signin-page a.site:hover {
+  text-decoration: underline;
+}
+.signin-page > div {
+  text-align: center;
+  padding: 0.5rem;
+}
+.signin-page .error a.button {
+  display: inline-block;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-top: 0.5rem;
+}
+.signin-page .error .message {
+  margin-bottom: 1.5rem;
+}
+.signin button, .signin a.button, .signin input[type="text"] {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.signin hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1.5em auto 0 auto;
+  overflow: visible;
+}
+.signin hr::before {
+  content: "or";
+  background: #fff;
+  color: #888;
+  padding: 0 0.4rem;
+  position: relative;
+  top: -0.6rem;
+}
+.signin .error {
+  font-weight: 500;
+  border-radius: 0.3rem;
+  background: #157efb;
+}
+.signin .error p {
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+  color: #fff;
+}
+.signin > div, .signin form {
+  display: block;
+  max-width: 300px;
+}
+.signin > div input[type], .signin form input[type] {
+  margin-bottom: 0.5rem;
+}
+.signin > div button, .signin form button {
+  width: 100%;
+}
+.signout .message {
+  margin-bottom: 1.5rem;
+}
+.signin-page .logo {
+  display: inline-block;
+  margin-top: 100px;
+  max-width: 300px;
+  max-height: 150px;
+}
+.signin-page .card {
+  max-width: max-content;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 20px 50px;
+  margin: 50px auto;
+}
+.signin-page .card .header {
+  color: #444;
+}
+.signin-page .section-header {
+  color: #000;
+}
