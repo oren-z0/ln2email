@@ -253,7 +253,11 @@ export default function UserSettings({ user }: UserSettingsProps) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ lightningAddress: targetLightningAddress })
+        body: JSON.stringify({
+          ...targetLightningAddress && {
+            lightningAddress: targetLightningAddress
+          }
+        })
       });
       const fetchResponseJson: { reason?: string } = await fetchResponse.json();
       if (!fetchResponse.ok) {
