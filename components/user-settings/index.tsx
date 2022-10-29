@@ -14,6 +14,22 @@ const UserSettingsModule = styled.div`
   justify-content: center;
 `;
 
+const PageTitle = styled.div`
+  padding: 0 30px;
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 600;
+  max-width: 800px;
+  text-align: center;
+  letter-spacing: -1px;
+  margin: 0 auto 10px auto;
+
+  ${media.tablet`
+    font-size: 22px;
+    line-height: 1.6;
+  `}
+`;
+
 const UserSettingsTitle = styled.div`
   margin: 0 auto;
   font-size: 30px;
@@ -271,6 +287,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
           Sign out
         </CTASignout>
       </SignoutWrapper>
+      <PageTitle>Lightning to Email</PageTitle>
       <UserSettingsTitle>User Settings</UserSettingsTitle>
       <UserSettingsSubtitle>{user.email}</UserSettingsSubtitle>
       <UserSettingsCardGrid>
