@@ -50,6 +50,26 @@ interface UpdateUserProps {
   unsubscribeAll?: boolean;
 }
 
+export async function deleteUserSessions(email: string) {
+  const client = await clientPromise;
+  const usersCollection = client.db().collection('users');
+  const userDocument = await usersCollection.findOne(
+    { email },
+    {
+      projection: {
+        _id: 1,
+      }
+    }
+  );
+  if (!userDocument) {
+    return;
+  }
+  const sessionsCollection = client.db().collection('sessions');
+  await sessionsCollection.deleteMany({
+    userId: userDocument._id
+  });
+}
+
 export async function updateUser(email: string, {
   lightningAddress,
   ...other
