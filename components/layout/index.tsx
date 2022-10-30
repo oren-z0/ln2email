@@ -58,7 +58,7 @@ export default function Layout({
         <meta property="og:type" content="website" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@Vercel" />
+        <meta name="twitter:site" content="@ln2email" />
         <meta name="twitter:creator" content="@ln2email" />
         <meta name="twitter:title" content={defaultMetaProps.title} />
         <meta name="twitter:description" content={defaultMetaProps.description} />
