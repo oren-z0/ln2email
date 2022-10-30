@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.2",
+    "@types/nodemailer": "^6.4.6",
     "@types/react": "^17.0.50",
     "@types/styled-components": "^5.1.26",
     "eslint": "8.17.0",
