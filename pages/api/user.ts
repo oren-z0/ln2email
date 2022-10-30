@@ -63,7 +63,7 @@ export default async function handler(
       return res.status(422).json({ reason: 'Update failed: Unprocessable JSON Body' });
     }
     try {
-      await updateUser(session.user.email, lightningAddress);
+      await updateUser(session.user.email, { lightningAddress });
       return res.status(200).json({});
     } catch (e: any) {
       console.error(e);

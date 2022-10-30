@@ -35,11 +35,38 @@ export async function getUser(email: string): Promise<UserProps | null> {
   };
 }
 
-export async function updateUser(email: string, lightningAddress?: string) {
+function ignoreEmptyValues<T>(record: Record<string,T>): Record<string,T> {
+  return Object.fromEntries(
+    Object.entries(record).filter(
+      ([, value]) => (value !== undefined) && (!value || Object.keys(value).length > 0)
+    )
+  );
+}
+
+interface UpdateUserProps {
+  lightningAddress?: string;
+}
+
+export async function updateUser(email: string, {
+  lightningAddress
+}: UpdateUserProps) {
   const client = await clientPromise;
   const collection = client.db().collection('users');
-  if (!lightningAddress) {
-    return await collection.updateOne({ email }, { $unset: { lightningAddress: 1 } });  
-  }
-  return await collection.updateOne({ email }, { $set: { lightningAddress } });
+  await collection.updateOne(
+    {
+      email
+    },
+    ignoreEmptyValues({
+      $unset: {
+        ...!lightningAddress && {
+          lightningAddress: 1
+        }
+      },
+      $set: {
+        ...lightningAddress && {
+          lightningAddress
+        }
+      }
+    })
+  )
 }
