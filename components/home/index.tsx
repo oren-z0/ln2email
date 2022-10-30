@@ -203,7 +203,7 @@ export default function Home() {
   return (
     <Wrapper>
       <Fade triggerOnce direction="up" cascade delay={500}>
-        <Intro>Under Construction</Intro>
+        <Intro>Beta</Intro>
         <Title>Lightning to Email</Title>
       </Fade>
       <Fade triggerOnce direction="up" delay={900}>
