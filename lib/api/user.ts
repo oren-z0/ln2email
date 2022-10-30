@@ -4,6 +4,7 @@ export interface UserProps {
   email: string;
   verified: boolean;
   lightningAddress?: string;
+  unsubscribeAll?: boolean;
 }
 
 export interface ResultProps {
@@ -22,6 +23,7 @@ export async function getUser(email: string): Promise<UserProps | null> {
         email: 1,
         emailVerified: 1,
         lightningAddress: 1,
+        unsubscribeAll: 1
       }
     }
   );
@@ -45,10 +47,12 @@ function ignoreEmptyValues<T>(record: Record<string,T>): Record<string,T> {
 
 interface UpdateUserProps {
   lightningAddress?: string;
+  unsubscribeAll?: boolean;
 }
 
 export async function updateUser(email: string, {
-  lightningAddress
+  lightningAddress,
+  ...other
 }: UpdateUserProps) {
   const client = await clientPromise;
   const collection = client.db().collection('users');
@@ -65,7 +69,8 @@ export async function updateUser(email: string, {
       $set: {
         ...lightningAddress && {
           lightningAddress
-        }
+        },
+        ...other
       }
     })
   )
