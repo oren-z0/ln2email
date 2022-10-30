@@ -306,6 +306,13 @@ export default function Home() {
           >
             Twitter
           </FooterLink>
+          <FooterLink
+            href="mailto:support@ln2.email"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            Support
+          </FooterLink>
         </FooterWrapper>
       </Fade>
     </Wrapper>
