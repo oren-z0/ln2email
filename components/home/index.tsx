@@ -45,7 +45,6 @@ const Intro = styled.p`
   margin: 0 auto 20px auto;
   background: rgba(0,118,255,0.1);
   ${media.tablet`
-    margin: 30px auto 20px auto;
     font-size: 18px;
     max-width: 900px;
     line-height: 1.6;
@@ -106,7 +105,7 @@ const LoopedTextPart = styled.span`
 const CTAWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 40px auto 20px auto;
+  margin: 30px auto 20px auto;
   ${media.tablet`
     flex-direction: row;
   `}
@@ -158,7 +157,7 @@ const CTASecondary = styled.a`
 
 const FooterWrapper = styled.div`
   display: flex;
-  margin: 20px 0;
+  margin: 8px 0;
   flex-direction: row;
   align-items: center;
   justify-content: center;
