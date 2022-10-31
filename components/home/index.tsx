@@ -103,17 +103,6 @@ const LoopedTextPart = styled.span`
   `}
 `;
 
-const Link = styled.a`
-  color: #0070f3;
-  font-weight: 400;
-  text-decoration: none;
-  letter-spacing: -0.5px;
-  &:hover {
-    color: #0070f3;
-    border-color: transparent;
-  }
-`;
-
 const CTAWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -208,12 +197,12 @@ export default function Home() {
       </Fade>
       <Fade triggerOnce direction="up" delay={900}>
         <Description>
-          <Bold>Accept Bitcoin payments via your email address + &quot;.ln2.email&quot;.</Bold>
-          A massively simpler way to switch between lightning wallets,
-          without changing your{' '}
-          <Link href="https://lightningaddress.com" target="_blank" rel="noreferrer noopener">
-            lightning address
-          </Link>.
+          <Bold>
+            The easiest way to switch between lightning wallets,
+            without changing your lightning address.
+          </Bold>
+          Get Bitcoin instantly from anyone on the Lightning Network through your permanent
+          lightning address.
         </Description>
       </Fade>
       <Fade triggerOnce direction="up" delay={1300}>
