@@ -2,7 +2,9 @@ import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
-import { media } from '@/lib/media';
+import Confetti from 'react-confetti';
+import { useWindowSize } from '@react-hook/window-size/throttled';
+import { media, sizes } from '@/lib/media';
 import { UserProps } from '@/lib/api/user';
 
 const UserSettingsModule = styled.div`
@@ -224,6 +226,15 @@ const CTASecondary = styled.button`
   `}
 `;
 
+const ConfettiWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+`;
+
 const toastOptions = {
   duration: 4000
 };
@@ -233,6 +244,7 @@ export interface UserSettingsProps {
 }
 
 export default function UserSettings({ user }: UserSettingsProps) {
+  const [confettiRun, setConfettiRun] = useState(false);
   const [loading, setLoading] = useState(false);
   const [
     savedTargetLightningAddress, setSavedTargetLightningAddress
@@ -240,6 +252,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
   const [
     targetLightningAddress, setTargetLightningAddress
   ] = useState(user.lightningAddress ?? '');
+  const [windowWidth, windowHeight] = useWindowSize();
 
   const resetTargetLightningAddress = () => {
     setTargetLightningAddress(savedTargetLightningAddress);
@@ -267,6 +280,9 @@ export default function UserSettings({ user }: UserSettingsProps) {
       }
       toast.success('Lightning address saved successfully', toastOptions);
       setSavedTargetLightningAddress(targetLightningAddress);
+      if (targetLightningAddress) {
+        setConfettiRun(true);
+      }
     } catch (error) {
       console.error('Failed to update target lightning address', error);
       toast.error('Unexpected error', toastOptions);
@@ -277,6 +293,10 @@ export default function UserSettings({ user }: UserSettingsProps) {
   };
 
   const ctaDisabled = loading || (savedTargetLightningAddress === targetLightningAddress);
+
+  const stopConfetti = () => {
+    setConfettiRun(false);
+  };
 
   return (
     <UserSettingsModule>
@@ -331,6 +351,21 @@ export default function UserSettings({ user }: UserSettingsProps) {
         </UserSettingsCard>
       </UserSettingsCardGrid>
       <Toaster />
+      {
+        confettiRun && (
+          <ConfettiWrapper>
+            <Confetti
+              gravity={0.15}
+              recycle={false}
+              numberOfPieces={(windowWidth < sizes.tablet) ? 512 : 1024}
+              width={windowWidth}
+              height={windowHeight}
+              tweenDuration={10000}
+              onConfettiComplete={stopConfetti}
+            />
+          </ConfettiWrapper>
+        )
+      }
     </UserSettingsModule>
   );
 }
