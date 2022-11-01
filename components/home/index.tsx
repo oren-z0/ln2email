@@ -299,7 +299,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer noopener"
           >
-            Support
+            Contact
           </FooterLink>
         </FooterWrapper>
       </Fade>
