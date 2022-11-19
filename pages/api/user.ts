@@ -35,29 +35,32 @@ export default async function handler(
           reason: 'Update failed: Malformed lightning address host'
         });
       }
-      if (!domain.toLowerCase().endsWith('.onion')) {
-        try {
-          const targetUrl = `https://${domain}/.well-known/lnurlp/${username}`;
-          console.info(`Sending GET to ${targetUrl}`);
-          const fetchResponse = await fetch(targetUrl);
-          if (!fetchResponse.ok) {
-            console.info(`GET failed with status ${fetchResponse.status}`);
-            return res.status(403).json({
-              reason: 'Update failed: Lightning address domain responded with bad status code'
-            });
-          }
-          const fetchResponseJson = (await fetchResponse.json()) as LnurlpJson;
-          if (!fetchResponseJson.callback) {
-            return res.status(403).json({
-              reason: 'Update failed: Lightning address domain responded with bad callback'
-            });
-          }
-        } catch (error) {
-          console.error(`GET Failed: ${error}`);
+      if (domain.toLowerCase().endsWith('.onion')) {
+        return res.status(422).json({
+          reason: 'Update failed: Onion addresses are not supported'
+        });
+      }
+      try {
+        const targetUrl = `https://${domain}/.well-known/lnurlp/${username}`;
+        console.info(`Sending GET to ${targetUrl}`);
+        const fetchResponse = await fetch(targetUrl);
+        if (!fetchResponse.ok) {
+          console.info(`GET failed with status ${fetchResponse.status}`);
           return res.status(403).json({
-            reason: 'Update failed: Lightning address domain request failed'
+            reason: 'Update failed: Lightning address domain responded with bad status code'
           });
         }
+        const fetchResponseJson = (await fetchResponse.json()) as LnurlpJson;
+        if (!fetchResponseJson.callback) {
+          return res.status(403).json({
+            reason: 'Update failed: Lightning address domain responded with bad callback'
+          });
+        }
+      } catch (error) {
+        console.error(`GET Failed: ${error}`);
+        return res.status(403).json({
+          reason: 'Update failed: Lightning address domain request failed'
+        });
       }
     } else if (lightningAddress !== undefined) {
       return res.status(422).json({ reason: 'Update failed: Unprocessable JSON Body' });
