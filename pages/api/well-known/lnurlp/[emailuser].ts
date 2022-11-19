@@ -41,7 +41,7 @@ export default async function handler(
     }
 
     return res.redirect(
-      302,
+      307,
       `${
         lightningDomain.toLowerCase().endsWith('.onion') ? 'http' : 'https'
       }://${lightningDomain}/.well-known/lnurlp/${lightningUsername}${
