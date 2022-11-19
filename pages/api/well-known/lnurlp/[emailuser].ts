@@ -43,7 +43,7 @@ export default async function handler(
     return res.redirect(
       302,
       `${
-        lightningDomain.endsWith('.onion') ? 'http' : 'https'
+        lightningDomain.toLowerCase().endsWith('.onion') ? 'http' : 'https'
       }://${lightningDomain}/.well-known/lnurlp/${lightningUsername}${
         searchParams && `?${searchParams}`
       }`
