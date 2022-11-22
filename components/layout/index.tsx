@@ -8,7 +8,7 @@ const defaultMetaProps = {
   name: 'LN2EMAIL',
   title: 'Lightning to Email',
   description:
-    'Forward lightning payments from your email address + ".ln2.email" to your wallet address.',
+    'Forward lightning payments from your email address + ".ln2.email" to your current lightning wallet.',
   ogImage: 'https://ln2.email/og.png',
   ogUrl: 'https://ln2.email'
 };
