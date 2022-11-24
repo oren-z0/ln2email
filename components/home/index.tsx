@@ -197,16 +197,15 @@ export default function Home() {
       <Fade triggerOnce direction="up" delay={900}>
         <Description>
           <Bold>
-            The easiest way to switch between lightning wallets,
-            without changing your lightning address.
+            Link your email address to your current lightning wallet.
           </Bold>
-          Get Bitcoin instantly from anyone on the Lightning Network through your permanent
-          lightning address.
+          Get a static lightning address, share it with anyone, and replace the wallet that
+          receives the payments at any time.
         </Description>
       </Fade>
       <Fade triggerOnce direction="up" delay={1300}>
         <LoopRowTitle>
-          Forward payments from:
+          Redirect payments from:
         </LoopRowTitle>
         {
           session?.user?.email ? (

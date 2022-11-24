@@ -1,6 +1,7 @@
 # Lightning to Email
 
-The easiest way to switch between lightning wallets, without changing your lightning address.
+Forward lightning payments from your email address + ".ln2.email" to your current lightning
+wallet.
 
 ![](/public/og.png)
 
