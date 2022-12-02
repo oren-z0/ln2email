@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  border: 8px solid ${({ theme }) => theme.colors.primary};
+  border: 8px solid ${({ theme }) => theme.colors.primaryLight};
   ${media.tablet`
     padding: 0;
     min-height: 640px;
