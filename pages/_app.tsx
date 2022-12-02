@@ -7,11 +7,11 @@ import Layout from '@/components/layout';
 
 const theme = {
   colors: {
-    primary: '#0070f3',
-    primaryLight: 'rgba(0,118,255,0.9)',
-    primaryLighter1: 'rgba(0,118,255,0.39)',
-    primaryLighter2: 'rgba(0,118,255,0.23)',
-    primaryLightest: 'rgba(0,118,255,0.1)',
+    primary: 'rgb(247,147,26)',
+    primaryLight: 'rgba(247,147,26,0.9)',
+    primaryLighter1: 'rgba(247,147,26,0.39)',
+    primaryLighter2: 'rgba(247,147,26,0.23)',
+    primaryLightest: 'rgba(247,147,26,0.1)',
   },
 };
 
