@@ -43,7 +43,7 @@ const Intro = styled.p`
   padding: 8px 12px;
   border-radius: 7px;
   margin: 0 auto 20px auto;
-  background: rgba(0,118,255,0.1);
+  background: ${({ theme }) => theme.colors.primaryLightest};
   ${media.tablet`
     font-size: 18px;
     max-width: 900px;
@@ -172,7 +172,7 @@ const FooterLink = styled.a`
   text-decoration: none;
   &:hover {
     color: #0070f3;
-    background: rgba(0,118,255,0.1);
+    background: ${({ theme }) => theme.colors.primaryLightest};
   }
 `;
 
