@@ -191,7 +191,7 @@ const CTAPrimary = styled.button`
   height: 2.1rem;
   font-size: 0.875em;
   text-decoration: none;
-  background-color: ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : '#0070f3'};
+  background-color: ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : props.theme.colors.primary};
   border: 0;
 
   ${(props) => props.disabled ? '' : `&:hover {
@@ -205,7 +205,7 @@ const CTAPrimary = styled.button`
 `;
 
 const CTASecondary = styled.button`
-  color: ${(props) => props.disabled ? 'rgba(0,0,0,0.26)' : '#0070f3'};
+  color: ${(props) => props.disabled ? 'rgba(0,0,0,0.26)' : props.theme.colors.primary};
   ${(props) => props.disabled ? '' : 'cursor: pointer;'}
   padding: 0;
   width: 80px;
@@ -216,7 +216,7 @@ const CTASecondary = styled.button`
   font-size: 0.875em;
   text-decoration: none;
   background-color: rgba(0,0,0,0);
-  border: 1px solid ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : '#0070f3'};
+  border: 1px solid ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : props.theme.colors.primary};
   ${(props) => props.disabled ? '' : `&:hover {
     box-shadow: inset 0 6px 20px rgb(0 118 255 / 23%);
   }`}

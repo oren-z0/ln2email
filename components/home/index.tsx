@@ -36,7 +36,7 @@ const Title = styled.h1`
 `;
 
 const Intro = styled.p`
-  color: #0070f3;
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 14px;
   line-height: 1.6;
   font-weight: 500;
@@ -122,7 +122,7 @@ const CTAPrimary = styled.a`
   border-radius: 7px;
   line-height: 2.8rem;
   text-decoration: none;
-  background-color: #0070f3;
+  background-color: ${({ theme }) => theme.colors.primary};
   box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
   &:hover {
     background: ${({ theme }) => theme.colors.primaryLight};
@@ -166,12 +166,12 @@ const FooterWrapper = styled.div`
 
 const FooterLink = styled.a`
   padding: 8px;
-  color: #0070f3;
+  color: ${({ theme }) => theme.colors.primary};
   font-weight: 400;
   border-radius: 7px;
   text-decoration: none;
   &:hover {
-    color: #0070f3;
+    color: ${({ theme }) => theme.colors.primary};
     background: ${({ theme }) => theme.colors.primaryLightest};
   }
 `;

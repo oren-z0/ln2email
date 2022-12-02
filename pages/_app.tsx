@@ -7,6 +7,7 @@ import Layout from '@/components/layout';
 
 const theme = {
   colors: {
+    primary: '#0070f3',
     primaryLight: 'rgba(0,118,255,0.9)',
     primaryLightest: 'rgba(0,118,255,0.1)',
   },
