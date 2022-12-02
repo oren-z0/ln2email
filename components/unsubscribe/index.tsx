@@ -122,7 +122,7 @@ const CTAPrimary = styled.button`
   border: 0;
 
   ${(props) => props.disabled ? '' : `&:hover {
-    background-color: rgba(0,118,255,0.9);
+    background-color: ${props.theme.colors.primaryLight};
     box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
   }`}
   ${media.tablet`

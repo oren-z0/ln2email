@@ -125,7 +125,7 @@ const CTAPrimary = styled.a`
   background-color: #0070f3;
   box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
   &:hover {
-    background: rgba(0,118,255,0.9);
+    background: ${({ theme }) => theme.colors.primaryLight};
     box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
   }
   ${media.tablet`
