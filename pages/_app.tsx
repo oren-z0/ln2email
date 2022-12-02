@@ -9,6 +9,8 @@ const theme = {
   colors: {
     primary: '#0070f3',
     primaryLight: 'rgba(0,118,255,0.9)',
+    primaryLighter1: 'rgba(0,118,255,0.39)',
+    primaryLighter2: 'rgba(0,118,255,0.23)',
     primaryLightest: 'rgba(0,118,255,0.1)',
   },
 };

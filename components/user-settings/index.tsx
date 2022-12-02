@@ -196,7 +196,7 @@ const CTAPrimary = styled.button`
 
   ${(props) => props.disabled ? '' : `&:hover {
     background-color: ${props.theme.colors.primaryLight};
-    box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+    box-shadow: 0 6px 20px ${props.theme.colors.primaryLighter2};
   }`}
   ${media.tablet`
     height: 2.3rem;
@@ -218,7 +218,7 @@ const CTASecondary = styled.button`
   background-color: rgba(0,0,0,0);
   border: 1px solid ${(props) => props.disabled ? 'rgba(0,0,0,0.12)' : props.theme.colors.primary};
   ${(props) => props.disabled ? '' : `&:hover {
-    box-shadow: inset 0 6px 20px rgb(0 118 255 / 23%);
+    box-shadow: inset 0 6px 20px ${props.theme.colors.primaryLighter};
   }`}
   ${media.tablet`
     height: 2.3rem;

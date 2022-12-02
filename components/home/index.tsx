@@ -123,10 +123,10 @@ const CTAPrimary = styled.a`
   line-height: 2.8rem;
   text-decoration: none;
   background-color: ${({ theme }) => theme.colors.primary};
-  box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+  box-shadow: 0 4px 14px 0 ${({ theme }) => theme.colors.primaryLighter1};
   &:hover {
     background: ${({ theme }) => theme.colors.primaryLight};
-    box-shadow: 0 6px 20px rgb(0 118 255 / 23%);
+    box-shadow: 0 6px 20px ${({ theme }) => theme.colors.primaryLighter2};
   }
   ${media.tablet`
     margin: 0;
