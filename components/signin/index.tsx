@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const defaultError = 'Unable to sign in.';
 
 const errors = new Map([
@@ -50,6 +52,7 @@ export default function SigninPage({
   return (
     <div className="signin-page">
       <div className="signin">
+        <Image src="/logo.svg" width="80" height="80" alt="Logo" />
         <div className="card">
           {errorMessage && (
             <div className="error">

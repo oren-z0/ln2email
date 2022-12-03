@@ -91,5 +91,11 @@ export default NextAuth({
   session: {
     maxAge: 3600,
     updateAge: 600
-  }
+  },
+  theme: {
+    brandColor: '#F7931A',
+    logo: `${
+      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://ln2.email'
+    }/logo.svg`
+  },
 });

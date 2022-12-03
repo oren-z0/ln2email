@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import Image from 'next/image';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import Confetti from 'react-confetti';
@@ -24,7 +25,7 @@ const PageTitle = styled.div`
   max-width: 800px;
   text-align: center;
   letter-spacing: -1px;
-  margin: 0 auto 10px auto;
+  margin: 10px auto 10px auto;
 
   ${media.tablet`
     font-size: 22px;
@@ -166,6 +167,7 @@ const LightningAddressInput = styled.input`
   padding: .5rem .8rem;
   &:focus {
     box-shadow: none;
+    border: 1px solid ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -311,6 +313,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
           Sign out
         </CTASignout>
       </SignoutWrapper>
+      <Image src="/logo.svg" width="50" height="50" alt="Logo" />
       <PageTitle>Lightning to Email</PageTitle>
       <UserSettingsTitle>User Settings</UserSettingsTitle>
       <UserSettingsSubtitle>{user.email}</UserSettingsSubtitle>

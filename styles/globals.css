@@ -54,6 +54,7 @@ body {
 }
 .signin-page input[type]:focus {
   box-shadow: none;
+  border: 1px solid rgb(247,147,26);
 }
 .signin-page p {
   margin: 0 0 1.5rem 0;
@@ -169,7 +170,7 @@ body {
   border: 1px solid #bbb;
   border-radius: 5px;
   padding: 20px 50px;
-  margin: 50px auto;
+  margin: 20px auto 80px auto;
 }
 .signin-page .card .header {
   color: #444;

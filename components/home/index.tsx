@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { Fade } from 'react-awesome-reveal';
@@ -32,22 +33,6 @@ const Title = styled.h1`
     max-width: 900px;
     font-weight: 800;
     letter-spacing: -4px;
-  `}
-`;
-
-const Intro = styled.p`
-  color: ${({ theme }) => theme.colors.primary};
-  font-size: 14px;
-  line-height: 1.6;
-  font-weight: 500;
-  padding: 8px 12px;
-  border-radius: 7px;
-  margin: 0 auto 20px auto;
-  background: ${({ theme }) => theme.colors.primaryLightest};
-  ${media.tablet`
-    font-size: 18px;
-    max-width: 900px;
-    line-height: 1.6;
   `}
 `;
 
@@ -191,7 +176,7 @@ export default function Home() {
   return (
     <Wrapper>
       <Fade triggerOnce direction="up" cascade delay={500}>
-        <Intro>Beta</Intro>
+        <Image src="/logo.svg" width="50" height="50" alt="Logo" />
         <Title>Lightning to Email</Title>
       </Fade>
       <Fade triggerOnce direction="up" delay={900}>
