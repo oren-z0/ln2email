@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
+import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import Confetti from 'react-confetti';
@@ -313,7 +314,11 @@ export default function UserSettings({ user }: UserSettingsProps) {
           Sign out
         </CTASignout>
       </SignoutWrapper>
-      <Image src="/logo.svg" width="50" height="50" alt="Logo" />
+      <Link href="/">
+        <a>
+          <Image src="/logo.svg" width="50" height="50" alt="Logo" />
+        </a>
+      </Link>
       <PageTitle>Lightning to Email</PageTitle>
       <UserSettingsTitle>User Settings</UserSettingsTitle>
       <UserSettingsSubtitle>{user.email}</UserSettingsSubtitle>

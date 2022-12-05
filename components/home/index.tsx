@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { Fade } from 'react-awesome-reveal';
@@ -180,7 +181,11 @@ export default function Home() {
   return (
     <Wrapper>
       <Fade triggerOnce direction="up" cascade delay={500}>
-        <Image src="/logo.svg" width="50" height="50" alt="Logo" />
+        <Link href="/">
+          <a>
+            <Image src="/logo.svg" width="50" height="50" alt="Logo" />
+          </a>
+        </Link>
         <Title>Lightning to Email</Title>
       </Fade>
       <Fade triggerOnce direction="up" delay={900}>
