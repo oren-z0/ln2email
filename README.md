@@ -1,6 +1,6 @@
 # Lightning to Email
 
-Forward lightning payments from your email address + ".ln2.email" to your current lightning
+Redirect lightning payments from your email address + ".ln2.email" to your current lightning
 wallet.
 
 ![](/public/og.png)

@@ -325,7 +325,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
           <UserSettingsCardDescription>
             All lightning payments to{' '}
             <LightningAddress>{user.email}.ln2.email</LightningAddress>
-            {' '}will be forwarded to:
+            {' '}will be redirected to:
           </UserSettingsCardDescription>
           <LightningAddressInput
             type="email"
