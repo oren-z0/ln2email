@@ -14,6 +14,10 @@ const Wrapper = styled.div`
   border: 8px solid ${({ theme }) => theme.colors.primaryLight};
   padding: 8dvh 0;
   min-height: calc(84dvh - 16px);
+  letter-spacing: -0.5px;
+  ${media.tablet`
+    letter-spacing: -1px;
+  `}
 `;
 
 const Title = styled.h1`
@@ -40,15 +44,11 @@ const Description = styled.p`
   font-weight: 400;
   padding: 0 30px;
   text-align: center;
-  letter-spacing: -0.5px;
-  margin: 20px auto 10px auto;
+  margin: 10px auto 10px auto;
   ${media.tablet`
     padding: 0;
     font-size: 20px;
-    padding: 0 30px;
     max-width: 600px;
-    line-height: 1.4;
-    letter-spacing: -1px;
   `}
 `;
 
@@ -87,9 +87,10 @@ const LoopedTextPart = styled.span`
 const CTAWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 30px auto 20px auto;
+  margin: 20px auto 10px auto;
   ${media.tablet`
     flex-direction: row;
+    margin: 30px auto 20px auto;
   `}
 `;
 
@@ -164,7 +165,6 @@ const Bold = styled.span`
   display: block;
   font-weight: 600;
   padding-bottom: 5px;
-  letter-spacing: -0.5px;
 `;
 
 const ExamplesContainer = styled.div`
