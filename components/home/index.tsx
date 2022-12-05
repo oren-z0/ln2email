@@ -154,7 +154,6 @@ const CTASecondary = styled.a`
 
 const FooterWrapper = styled.div`
   display: flex;
-  margin: 8px 0;
   flex-direction: row;
   align-items: center;
   justify-content: center;
