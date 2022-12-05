@@ -324,7 +324,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
       </SignoutWrapper>
       <Link href="/">
         <a>
-          <Image src="/logo.svg" width={55} height={55} alt="Logo" />
+          <Image src="/logo.svg" width={60} height={60} alt="Logo" />
         </a>
       </Link>
       <PageTitle>Lightning to Email</PageTitle>
