@@ -87,7 +87,7 @@ const LoopedTextPart = styled.span`
 const CTAWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px auto 10px auto;
+  margin: 24px auto 14px auto;
   ${media.tablet`
     flex-direction: row;
     margin: 30px auto 20px auto;
