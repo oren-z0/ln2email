@@ -15,10 +15,14 @@ const Wrapper = styled.div`
   border: 8px solid ${({ theme }) => theme.colors.primaryLight};
   padding: 8dvh 0;
   min-height: calc(84dvh - 16px);
-  letter-spacing: -0.5px;
-  ${media.tablet`
-    letter-spacing: -1px;
-  `}
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 80px;
 `;
 
 const Title = styled.h1`
@@ -46,10 +50,23 @@ const Description = styled.p`
   padding: 0 30px;
   text-align: center;
   margin: 10px auto 10px auto;
+  letter-spacing: -0.5px;
   ${media.tablet`
     padding: 0;
     font-size: 20px;
     max-width: 600px;
+    letter-spacing: -1px;
+  `}
+`;
+
+const ExamplesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
+  ${media.tablet`
+    letter-spacing: -1px;
   `}
 `;
 
@@ -168,24 +185,19 @@ const Bold = styled.span`
   padding-bottom: 5px;
 `;
 
-const ExamplesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 export default function Home() {
   const { data: session, status } = useSession();
 
   return (
     <Wrapper>
       <Fade triggerOnce direction="up" cascade delay={500}>
-        <Link href="/">
-          <a>
-            <Image src="/logo.svg" width="50" height="50" alt="Logo" />
-          </a>
-        </Link>
+        <ImageContainer>
+          <Link href="/">
+            <a>
+              <Image src="/logo.svg" width={60} height={60} alt="Logo" />
+            </a>
+          </Link>
+        </ImageContainer>
         <Title>Lightning to Email</Title>
       </Fade>
       <Fade triggerOnce direction="up" delay={900}>

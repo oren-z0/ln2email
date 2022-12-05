@@ -25,12 +25,13 @@ const PageTitle = styled.div`
   font-weight: 600;
   max-width: 800px;
   text-align: center;
-  letter-spacing: -1px;
   margin: 10px auto 10px auto;
+  letter-spacing: -0.5px;
 
   ${media.tablet`
     font-size: 22px;
     line-height: 1.6;
+    letter-spacing: -1px;
   `}
 `;
 
@@ -42,12 +43,12 @@ const UserSettingsTitle = styled.div`
   font-weight: 800;
   line-height: 1.3;
   text-align: center;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
 
   ${media.tablet`
     padding: 0;
     font-size: 44px;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
   `}
 `;
 
@@ -59,12 +60,13 @@ const UserSettingsSubtitle = styled.div`
   font-weight: 400;
   max-width: 800px;
   text-align: center;
-  letter-spacing: -1px;
   margin: 20px auto 10px auto;
+  letter-spacing: -0.5px;
 
   ${media.tablet`
     font-size: 20px;
     line-height: 1.6;
+    letter-spacing: -1px;
   `}
 `;
 
@@ -100,6 +102,11 @@ const UserSettingsCardTitle = styled.div`
   line-height: 1.4;
   font-weight: 600;
   font-size: 1.125em;
+  letter-spacing: -0.5px;
+  
+  ${media.tablet`
+    letter-spacing: -1px;
+  `}
 `;
 
 const UserSettingsCardDescription = styled.div`
@@ -181,6 +188,7 @@ const LightningAddressInputSublabel = styled.div`
   text-align: left;
   margin: 2px 0 8px 0;
   width: 100%;
+  letter-spacing: 0px;
 `;
 
 const CTAPrimary = styled.button`
@@ -316,7 +324,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
       </SignoutWrapper>
       <Link href="/">
         <a>
-          <Image src="/logo.svg" width="50" height="50" alt="Logo" />
+          <Image src="/logo.svg" width={60} height={60} alt="Logo" />
         </a>
       </Link>
       <PageTitle>Lightning to Email</PageTitle>
