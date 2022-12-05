@@ -8,20 +8,17 @@ import { media } from '@/lib/media';
 const Wrapper = styled.div`
   display: flex;
   background: #fff;
-  padding: 30px 0;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   border: 8px solid ${({ theme }) => theme.colors.primaryLight};
-  ${media.tablet`
-    padding: 0;
-    min-height: 640px;
-    height: calc(100vh - 16px);
-  `}
+  padding: 8vh 0;
+  min-height: calc(84vh - 16px);
 `;
 
 const Title = styled.h1`
   margin: 0 auto;
+  padding: 0 10px;
   font-size: 38px;
   max-width: 900px;
   font-weight: 800;
@@ -170,6 +167,13 @@ const Bold = styled.span`
   letter-spacing: -0.5px;
 `;
 
+const ExamplesContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default function Home() {
   const { data: session, status } = useSession();
 
@@ -189,49 +193,51 @@ export default function Home() {
         </Description>
       </Fade>
       <Fade triggerOnce direction="up" delay={1300}>
-        <LoopRowTitle>
-          Redirect payments from:
-        </LoopRowTitle>
-        {
-          session?.user?.email ? (
-            <LoopRowTitle>
-              {session.user.email}.ln2.email
-            </LoopRowTitle>
-          ) : (
-            <LoopRowWrapper>
-              <FixedTextPart>you@</FixedTextPart>
-              <TextLoop interval={3000} delay={1600}>
-                <LoopedTextPart>gmail.com</LoopedTextPart>
-                <LoopedTextPart>protonmail.com</LoopedTextPart>
-                <LoopedTextPart>hotmail.com</LoopedTextPart>
-                <LoopedTextPart>icloud.com</LoopedTextPart>
-              </TextLoop>
-              <FixedTextPart>.ln2.email</FixedTextPart>
-            </LoopRowWrapper>
-          )
-        }
-        <LoopRowTitle>
-          to:
-        </LoopRowTitle>
-        <LoopRowWrapper>
-          <TextLoop interval={3000} delay={1600}>
-            <LoopedTextPart>spiderman@zbd.gg</LoopedTextPart>
-            <LoopedTextPart>deadpool@lntxbot.com</LoopedTextPart>
-            <LoopedTextPart>hannibal@zebedee.io</LoopedTextPart>
-            <LoopedTextPart>darthvader@coinos.io</LoopedTextPart>
-            <LoopedTextPart>batman@ln.tips</LoopedTextPart>
-            <LoopedTextPart>gladiator@coincorner.io</LoopedTextPart>
-            <LoopedTextPart>guyfawkes@bitrefill.me</LoopedTextPart>
-            <LoopedTextPart>shredder@fbtc.me</LoopedTextPart>
-            <LoopedTextPart>ironman@lnmarkets.com</LoopedTextPart>
-            <LoopedTextPart>westley@getalby.com</LoopedTextPart>
-            <LoopedTextPart>zorro@walletofsatoshi.com</LoopedTextPart>
-            <LoopedTextPart>scorpion@sparkwallet.me</LoopedTextPart>
-            <LoopedTextPart>rorschach@getmash.cash</LoopedTextPart>
-            <LoopedTextPart>theloneranger@8333.mobi</LoopedTextPart>
-            <LoopedTextPart>greenlantern@starbackr.me</LoopedTextPart>
-          </TextLoop>
-        </LoopRowWrapper>
+        <ExamplesContainer>
+          <LoopRowTitle>
+            Redirect payments from:
+          </LoopRowTitle>
+          {
+            session?.user?.email ? (
+              <LoopRowTitle>
+                {session.user.email}.ln2.email
+              </LoopRowTitle>
+            ) : (
+              <LoopRowWrapper>
+                <FixedTextPart>you@</FixedTextPart>
+                <TextLoop interval={3000} delay={1600}>
+                  <LoopedTextPart>gmail.com</LoopedTextPart>
+                  <LoopedTextPart>protonmail.com</LoopedTextPart>
+                  <LoopedTextPart>hotmail.com</LoopedTextPart>
+                  <LoopedTextPart>icloud.com</LoopedTextPart>
+                </TextLoop>
+                <FixedTextPart>.ln2.email</FixedTextPart>
+              </LoopRowWrapper>
+            )
+          }
+          <LoopRowTitle>
+            to:
+          </LoopRowTitle>
+          <LoopRowWrapper>
+            <TextLoop interval={3000} delay={1600}>
+              <LoopedTextPart>spiderman@zbd.gg</LoopedTextPart>
+              <LoopedTextPart>deadpool@lntxbot.com</LoopedTextPart>
+              <LoopedTextPart>hannibal@zebedee.io</LoopedTextPart>
+              <LoopedTextPart>darthvader@coinos.io</LoopedTextPart>
+              <LoopedTextPart>batman@ln.tips</LoopedTextPart>
+              <LoopedTextPart>gladiator@coincorner.io</LoopedTextPart>
+              <LoopedTextPart>guyfawkes@bitrefill.me</LoopedTextPart>
+              <LoopedTextPart>shredder@fbtc.me</LoopedTextPart>
+              <LoopedTextPart>ironman@lnmarkets.com</LoopedTextPart>
+              <LoopedTextPart>westley@getalby.com</LoopedTextPart>
+              <LoopedTextPart>zorro@walletofsatoshi.com</LoopedTextPart>
+              <LoopedTextPart>scorpion@sparkwallet.me</LoopedTextPart>
+              <LoopedTextPart>rorschach@getmash.cash</LoopedTextPart>
+              <LoopedTextPart>theloneranger@8333.mobi</LoopedTextPart>
+              <LoopedTextPart>greenlantern@starbackr.me</LoopedTextPart>
+            </TextLoop>
+          </LoopRowWrapper>
+        </ExamplesContainer>
       </Fade>
       <Fade triggerOnce direction="up" delay={1700}>
         <CTAWrapper>
