@@ -243,9 +243,9 @@ export default function Home() {
               <LoopedTextPart>westley@getalby.com</LoopedTextPart>
               <LoopedTextPart>zorro@walletofsatoshi.com</LoopedTextPart>
               <LoopedTextPart>scorpion@sparkwallet.me</LoopedTextPart>
-              <LoopedTextPart>rorschach@getmash.cash</LoopedTextPart>
               <LoopedTextPart>theloneranger@8333.mobi</LoopedTextPart>
               <LoopedTextPart>greenlantern@starbackr.me</LoopedTextPart>
+              <LoopedTextPart>rorschach@lifpay.me</LoopedTextPart>
             </TextLoop>
           </LoopRowWrapper>
         </ExamplesContainer>
