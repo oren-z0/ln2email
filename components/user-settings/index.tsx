@@ -60,7 +60,7 @@ const UserSettingsSubtitle = styled.div`
   font-weight: 400;
   max-width: 800px;
   text-align: center;
-  margin: 20px auto 10px auto;
+  margin: 5px auto 5px auto;
   letter-spacing: -0.5px;
 
   ${media.tablet`
@@ -324,7 +324,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
       </SignoutWrapper>
       <Link href="/">
         <a>
-          <Image src="/logo.svg" width={60} height={60} alt="Logo" />
+          <Image src="/logo.svg" width={55} height={55} alt="Logo" />
         </a>
       </Link>
       <PageTitle>Lightning to Email</PageTitle>

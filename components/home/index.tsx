@@ -18,11 +18,7 @@ const Wrapper = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  height: 80px;
+  padding: 5px;
 `;
 
 const Title = styled.h1`
@@ -182,7 +178,6 @@ const Bold = styled.span`
   padding: 0;
   display: block;
   font-weight: 600;
-  padding-bottom: 5px;
 `;
 
 export default function Home() {
@@ -194,7 +189,7 @@ export default function Home() {
         <ImageContainer>
           <Link href="/">
             <a>
-              <Image src="/logo.svg" width={60} height={60} alt="Logo" />
+              <Image src="/logo.svg" width={55} height={55} alt="Logo" />
             </a>
           </Link>
         </ImageContainer>
