@@ -12,8 +12,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   border: 8px solid ${({ theme }) => theme.colors.primaryLight};
-  padding: 8vh 0;
-  min-height: calc(84vh - 16px);
+  padding: 8svh 0;
+  min-height: calc(84svh - 16px);
 `;
 
 const Title = styled.h1`
