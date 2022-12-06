@@ -263,7 +263,7 @@ export default function Home() {
             }
           >
             {
-              session ? 'Go to Settings' : 'Sign in'
+              session ? 'Go to Settings' : 'Sign in for free!'
             }
           </CTAPrimary>
           {
