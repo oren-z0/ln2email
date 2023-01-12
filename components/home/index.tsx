@@ -259,11 +259,11 @@ export default function Home() {
               }
             }}
             href={
-              session ? '/settings' : '/api/auth/signin?callbackUrl=%2Fauth-callback'
+              session ? '/profile' : '/api/auth/signin?callbackUrl=%2Fauth-callback'
             }
           >
             {
-              session ? 'Go to Settings' : 'Sign in for free!'
+              session ? 'Go to your profile' : 'Sign in for free!'
             }
           </CTAPrimary>
           {

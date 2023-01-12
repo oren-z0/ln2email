@@ -9,7 +9,7 @@ import { useWindowSize } from '@react-hook/window-size/throttled';
 import { media, sizes } from '@/lib/media';
 import { UserProps } from '@/lib/api/user';
 
-const UserSettingsModule = styled.div`
+const UserProfileModule = styled.div`
   display: flex;
   align-items: center;
   padding: 0;
@@ -35,7 +35,7 @@ const PageTitle = styled.div`
   `}
 `;
 
-const UserSettingsTitle = styled.div`
+const UserProfileTitle = styled.div`
   margin: 0 auto;
   font-size: 30px;
   padding: 0 30px;
@@ -52,7 +52,7 @@ const UserSettingsTitle = styled.div`
   `}
 `;
 
-const UserSettingsSubtitle = styled.div`
+const UserProfileSubtitle = styled.div`
   color: #666666;
   padding: 0 30px;
   font-size: 16px;
@@ -70,7 +70,7 @@ const UserSettingsSubtitle = styled.div`
   `}
 `;
 
-const UserSettingsCardGrid = styled.div`
+const UserProfileCardGrid = styled.div`
   display: flex;
   padding: 10px 0;
   flex-direction: column;
@@ -79,7 +79,7 @@ const UserSettingsCardGrid = styled.div`
   `}
 `;
 
-const UserSettingsCard = styled.div`
+const UserProfileCard = styled.div`
   padding: 20px 20px;
   display: flex;
   margin: 0 10px 20px 10px;
@@ -96,7 +96,7 @@ const UserSettingsCard = styled.div`
   `}
 `;
 
-const UserSettingsCardTitle = styled.div`
+const UserProfileCardTitle = styled.div`
   color: #111;
   margin: 0 0 8px 0;
   line-height: 1.4;
@@ -109,7 +109,7 @@ const UserSettingsCardTitle = styled.div`
   `}
 `;
 
-const UserSettingsCardDescription = styled.div`
+const UserProfileCardDescription = styled.div`
   color: #111;
   font-size: 14px;
   padding: 0 5px;
@@ -250,11 +250,11 @@ const toastOptions = {
   duration: 4000
 };
 
-export interface UserSettingsProps {
+export interface UserProfileProps {
   user: UserProps;
 }
 
-export default function UserSettings({ user }: UserSettingsProps) {
+export default function UserProfile({ user }: UserProfileProps) {
   const [confettiRun, setConfettiRun] = useState(false);
   const [loading, setLoading] = useState(false);
   const [
@@ -310,7 +310,7 @@ export default function UserSettings({ user }: UserSettingsProps) {
   };
 
   return (
-    <UserSettingsModule>
+    <UserProfileModule>
       <SignoutWrapper>
         <CTASignout
           href="#"
@@ -328,18 +328,18 @@ export default function UserSettings({ user }: UserSettingsProps) {
         </a>
       </Link>
       <PageTitle>Lightning to Email</PageTitle>
-      <UserSettingsTitle>User Settings</UserSettingsTitle>
-      <UserSettingsSubtitle>{user.email}</UserSettingsSubtitle>
-      <UserSettingsCardGrid>
-        <UserSettingsCard>
-          <UserSettingsCardTitle>
+      <UserProfileTitle>User Profile</UserProfileTitle>
+      <UserProfileSubtitle>{user.email}</UserProfileSubtitle>
+      <UserProfileCardGrid>
+        <UserProfileCard>
+          <UserProfileCardTitle>
             Lightning Address
-          </UserSettingsCardTitle>
-          <UserSettingsCardDescription>
+          </UserProfileCardTitle>
+          <UserProfileCardDescription>
             All lightning payments to{' '}
             <LightningAddress>{user.email}.ln2.email</LightningAddress>
             {' '}will be redirected to:
-          </UserSettingsCardDescription>
+          </UserProfileCardDescription>
           <LightningAddressInput
             type="email"
             disabled={loading}
@@ -364,8 +364,8 @@ export default function UserSettings({ user }: UserSettingsProps) {
               Reset
             </CTASecondary>
           </CTAWrapper>
-        </UserSettingsCard>
-      </UserSettingsCardGrid>
+        </UserProfileCard>
+      </UserProfileCardGrid>
       <Toaster />
       {
         confettiRun && (
@@ -382,6 +382,6 @@ export default function UserSettings({ user }: UserSettingsProps) {
           </ConfettiWrapper>
         )
       }
-    </UserSettingsModule>
+    </UserProfileModule>
   );
 }
