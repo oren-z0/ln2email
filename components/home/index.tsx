@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import { Fade } from 'react-awesome-reveal';
-import { TextLoop } from 'react-text-loop-next';
 import { media } from '@/lib/media';
+import TextLoop from '../text-loop';
 
 const Wrapper = styled.div`
   display: flex;
@@ -85,13 +85,6 @@ const LoopRowWrapper = styled.div`
 `;
 
 const FixedTextPart = styled.span`
-  font-size: 18px;
-  ${media.tablet`
-    font-size: 24px;
-  `}
-`;
-
-const LoopedTextPart = styled.span`
   font-size: 18px;
   ${media.tablet`
     font-size: 24px;
@@ -187,9 +180,7 @@ export default function Home() {
       <Fade triggerOnce direction="up" cascade delay={500}>
         <ImageContainer>
           <Link href="/">
-            <a>
-              <Image src="/logo.svg" width={60} height={60} alt="Logo" />
-            </a>
+            <Image src="/logo.svg" width={60} height={60} alt="Logo" />
           </Link>
         </ImageContainer>
         <Title>Lightning to Email</Title>
@@ -216,12 +207,15 @@ export default function Home() {
             ) : (
               <LoopRowWrapper>
                 <FixedTextPart>you@</FixedTextPart>
-                <TextLoop interval={3000} delay={1600}>
-                  <LoopedTextPart>gmail.com</LoopedTextPart>
-                  <LoopedTextPart>protonmail.com</LoopedTextPart>
-                  <LoopedTextPart>hotmail.com</LoopedTextPart>
-                  <LoopedTextPart>icloud.com</LoopedTextPart>
-                </TextLoop>
+                <TextLoop
+                  animationDuration={3000}
+                  texts={[
+                    "gmail.com",
+                    "protonmail.com",
+                    "hotmail.com",
+                    "icloud.com",
+                  ]}
+                />
                 <FixedTextPart>.ln2.email</FixedTextPart>
               </LoopRowWrapper>
             )
@@ -230,23 +224,28 @@ export default function Home() {
             to:
           </LoopRowTitle>
           <LoopRowWrapper>
-            <TextLoop interval={3000} delay={1600}>
-              <LoopedTextPart>spiderman@zbd.gg</LoopedTextPart>
-              <LoopedTextPart>deadpool@lntxbot.com</LoopedTextPart>
-              <LoopedTextPart>hannibal@zebedee.io</LoopedTextPart>
-              <LoopedTextPart>darthvader@coinos.io</LoopedTextPart>
-              <LoopedTextPart>batman@ln.tips</LoopedTextPart>
-              <LoopedTextPart>gladiator@coincorner.io</LoopedTextPart>
-              <LoopedTextPart>guyfawkes@bitrefill.me</LoopedTextPart>
-              <LoopedTextPart>shredder@fbtc.me</LoopedTextPart>
-              <LoopedTextPart>ironman@lnmarkets.com</LoopedTextPart>
-              <LoopedTextPart>westley@getalby.com</LoopedTextPart>
-              <LoopedTextPart>zorro@walletofsatoshi.com</LoopedTextPart>
-              <LoopedTextPart>scorpion@sparkwallet.me</LoopedTextPart>
-              <LoopedTextPart>theloneranger@8333.mobi</LoopedTextPart>
-              <LoopedTextPart>greenlantern@starbackr.me</LoopedTextPart>
-              <LoopedTextPart>rorschach@lifpay.me</LoopedTextPart>
-            </TextLoop>
+            <FixedTextPart>&nbsp;</FixedTextPart>
+            <TextLoop
+              animationDuration={3000}
+              texts={[
+                "spiderman@zbd.gg",
+                "deadpool@lntxbot.com",
+                "hannibal@zebedee.io",
+                "darthvader@coinos.io",
+                "batman@ln.tips",
+                "gladiator@coincorner.io",
+                "guyfawkes@bitrefill.me",
+                "shredder@fbtc.me",
+                "ironman@lnmarkets.com",
+                "westley@getalby.com",
+                "zorro@walletofsatoshi.com",
+                "scorpion@sparkwallet.me",
+                "theloneranger@8333.mobi",
+                "greenlantern@starbackr.me",
+                "rorschach@lifpay.me",
+              ]}
+            />
+            <FixedTextPart>&nbsp;</FixedTextPart>
           </LoopRowWrapper>
         </ExamplesContainer>
       </Fade>

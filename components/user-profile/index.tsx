@@ -323,9 +323,7 @@ export default function UserProfile({ user }: UserProfileProps) {
         </CTASignout>
       </SignoutWrapper>
       <Link href="/">
-        <a>
-          <Image src="/logo.svg" width={60} height={60} alt="Logo" />
-        </a>
+        <Image src="/logo.svg" width={60} height={60} alt="Logo" />
       </Link>
       <PageTitle>Lightning to Email</PageTitle>
       <UserProfileTitle>User Profile</UserProfileTitle>
