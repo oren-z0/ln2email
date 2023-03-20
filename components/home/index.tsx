@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Fade } from 'react-awesome-reveal';
 import { media } from '@/lib/media';
 import TextLoop from '../text-loop';
+import CookieConsent from 'react-cookie-consent';
 
 const Wrapper = styled.div`
   display: flex;
@@ -303,6 +304,12 @@ export default function Home() {
           </FooterLink>
         </FooterWrapper>
       </Fade>
+      <CookieConsent
+        debug={process.env.NODE_ENV === "development"}
+        buttonStyle={{ color: "#FFF", backgroundColor: "#F7931A" }}
+      >
+        This website uses cookies to follow the user session and enhance the user experience.
+      </CookieConsent>
     </Wrapper>
   );
 }
