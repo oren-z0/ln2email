@@ -25,7 +25,7 @@ export default function TextLoop({
     position: relative;
   }
 
-  ${(100 / texts.length) - 0.01}% {
+  ${(100 / texts.length) - 0.1}% {
     opacity: 0;
     transform: translate3d(0, -25px, 0);
     position: relative;
