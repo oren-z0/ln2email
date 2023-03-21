@@ -119,7 +119,7 @@ const UserProfileCardDescription = styled.div`
   margin-bottom: 8px;
 `;
 
-const LightningAddress = styled.span`
+const Address = styled.span`
   font-weight: 700;
 `
 
@@ -344,7 +344,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           </UserProfileCardTitle>
           <UserProfileCardDescription>
             All lightning payments to{' '}
-            <LightningAddress>{user.email}.ln2.email</LightningAddress>
+            <Address>{user.email}.ln2.email</Address>
             {' '}will be redirected to:
           </UserProfileCardDescription>
           <TextInput
@@ -361,8 +361,8 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
             Nostr
           </UserProfileCardTitle>
           <UserProfileCardDescription>
-            The NIP-05 address
-            <LightningAddress>{user.email}.ln2.email</LightningAddress>
+            The NIP-05 address{' '}
+            <Address>{user.email}.ln2.email</Address>
             {' '}will be assigned to public key:
           </UserProfileCardDescription>
           <TextInput
