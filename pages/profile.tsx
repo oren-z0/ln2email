@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
     props: {
       user,
-      bech32pubkey: user.nip05pubkey && bech32.encode(
+      nip05pubkeyBech32: user.nip05pubkey && bech32.encode(
         'npub',
         bech32.toWords(Buffer.from(user.nip05pubkey, 'hex'))
       ),      

@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'PUT') {
-    const { lightningAddress, bech32pubkey } = req.body || {};
+    const { lightningAddress, nip05pubkeyBech32 } = req.body || {};
     const session = await getSession({ req });
     if (!session || !session.user?.email) {
       return res.status(401).json({
@@ -71,31 +71,31 @@ export default async function handler(
       }
     }
     let nip05pubkey: string | undefined;
-    if (bech32pubkey !== undefined && typeof bech32pubkey !== 'string') {
+    if (nip05pubkeyBech32 !== undefined && typeof nip05pubkeyBech32 !== 'string') {
       return res.status(422).json({
-        reason: 'Update failed: Unprocessable JSON Body: bech32pubkey'
+        reason: 'Update failed: Unprocessable JSON Body: nip05pubkeyBech32'
       });
     }
-    if (bech32pubkey) {
-      if (bech32pubkey.length !== nip19pukeyLength) {
+    if (nip05pubkeyBech32) {
+      if (nip05pubkeyBech32.length !== nip19pukeyLength) {
         return res.status(422).json({
           reason: 'Update failed: Bad NIP-19 public key length, must look like: npub...'
         });
       }
       try {
-        const { prefix, words } = bech32.decode(bech32pubkey);
+        const { prefix, words } = bech32.decode(nip05pubkeyBech32);
         if (prefix !== 'npub') {
-          console.error(`Unexpected bech32pubkey prefix: ${prefix}`);
+          console.error(`Unexpected nip05pubkeyBech32 prefix: ${prefix}`);
           throw new Error('Wrong prefix');
         }
         nip05pubkey = Buffer.from(bech32.fromWords(words)).toString('hex');
       } catch (error) {
-        console.error(`Failed to parse bech32pubkey: ${error}`);
+        console.error(`Failed to parse nip05pubkeyBech32: ${error}`);
         return res.status(422).json({
           reason: 'Update failed: Bad NIP-19 public key, must look like: npub...'
         });
       }
-    } else if (bech32pubkey === '') {
+    } else if (nip05pubkeyBech32 === '') {
       nip05pubkey = '';
     }
     try {
