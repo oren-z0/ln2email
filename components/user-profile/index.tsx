@@ -186,7 +186,7 @@ const TextInputSublabel = styled.div`
   line-height: 1.2;
   font-weight: 400;
   text-align: left;
-  margin: 2px 0 8px 0;
+  margin: 2px 0 16px 0;
   width: 100%;
   letter-spacing: 0px;
 `;
@@ -263,7 +263,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
   ] = useState(user.lightningAddress ?? '');
   const [
     savedNip05pubkeyBech32, setSavedNip05pubkeyBech32
-  ] = useState(user.lightningAddress ?? '');
+  ] = useState(nip05pubkeyBech32 ?? '');
   const [
     targetLightningAddress, setTargetLightningAddress
   ] = useState(user.lightningAddress ?? '');
