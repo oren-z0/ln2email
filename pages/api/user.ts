@@ -21,7 +21,10 @@ export default async function handler(
         error: 'Unauthorized'
       });
     }
-    if (typeof lightningAddress === 'string') {
+    if (lightningAddress !== undefined && typeof lightningAddress !== 'string') {
+      return res.status(422).json({ reason: 'Update failed: Unprocessable JSON Body' });
+    }
+    if (lightningAddress) {
       if (lightningAddress.length > maxLightningAddressLength) {
         return res.status(422).json({ reason: 'Update failed: Lightning address is too long' });
       }
@@ -62,8 +65,6 @@ export default async function handler(
           reason: 'Update failed: Lightning address domain request failed'
         });
       }
-    } else if (lightningAddress !== undefined) {
-      return res.status(422).json({ reason: 'Update failed: Unprocessable JSON Body' });
     }
     try {
       await updateUser(session.user.email, { lightningAddress });

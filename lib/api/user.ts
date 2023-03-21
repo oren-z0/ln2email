@@ -82,7 +82,7 @@ export async function updateUser(email: string, {
     },
     ignoreEmptyValues({
       $unset: {
-        ...!lightningAddress && {
+        ...lightningAddress === '' && {
           lightningAddress: 1
         }
       },

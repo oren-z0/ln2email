@@ -278,9 +278,7 @@ export default function UserProfile({ user }: UserProfileProps) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          ...targetLightningAddress && {
-            lightningAddress: targetLightningAddress
-          }
+          lightningAddress: targetLightningAddress.trim(),
         })
       });
       const fetchResponseJson: { reason?: string } = await fetchResponse.json();
