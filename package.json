@@ -10,6 +10,7 @@
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.1",
     "@react-hook/window-size": "^3.1.1",
+    "bech32": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongodb": "^4.13.0",
     "next-auth": "^4.20.1",
