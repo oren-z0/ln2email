@@ -5,6 +5,7 @@ export interface UserProps {
   email: string;
   verified: boolean;
   lightningAddress?: string;
+  bech32pubkey?: string;
   unsubscribeAll?: boolean;
 }
 
