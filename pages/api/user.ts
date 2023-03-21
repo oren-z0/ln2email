@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 import { bech32 } from 'bech32';
 
 const maxLightningAddressLength = 320;
-const nip19pukeyLength = 63;
+const nip05pubkeyBech32Length = 63;
 
 interface LnurlpJson {
   callback?: string;
@@ -77,7 +77,7 @@ export default async function handler(
       });
     }
     if (nip05pubkeyBech32) {
-      if (nip05pubkeyBech32.length !== nip19pukeyLength) {
+      if (nip05pubkeyBech32.length !== nip05pubkeyBech32Length) {
         return res.status(422).json({
           reason: 'Update failed: Bad NIP-19 public key length, must look like: npub...'
         });
