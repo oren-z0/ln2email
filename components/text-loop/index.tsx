@@ -18,7 +18,7 @@ export default function TextLoop({
     transform: translate3d(0, 35px, 0);
     position: relative;
   }
-  
+
   ${(15 / texts.length)}%, ${(85 / texts.length)}% {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -30,7 +30,7 @@ export default function TextLoop({
     transform: translate3d(0, -25px, 0);
     position: relative;
   }
-  
+
   ${(100 / texts.length)}%, 100% {
     opacity: 0;
     transform: translate3d(0, -25px, 0);
@@ -56,7 +56,7 @@ export default function TextLoop({
         texts.map((text, index) => (
           <LoopedTextPart
             key={index}
-            style={{ 
+            style={{
               animationDelay: `${animationDuration * index}ms`,
             }}
           >

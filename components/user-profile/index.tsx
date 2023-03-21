@@ -103,7 +103,7 @@ const UserProfileCardTitle = styled.div`
   font-weight: 600;
   font-size: 1.125em;
   letter-spacing: -0.5px;
-  
+
   ${media.tablet`
     letter-spacing: -1px;
   `}

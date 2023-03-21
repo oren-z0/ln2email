@@ -10,7 +10,7 @@ export default async function handler(
   const { emailuser } = req.query;
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET');
-  
+
   if (req.method === 'GET') {
     const host = req.headers.host ?? '';
     if (process.env.NODE_ENV !== 'development') {
@@ -18,9 +18,9 @@ export default async function handler(
         return res.status(404).json({
           reason: 'Not found'
         });
-      }  
+      }
     }
-    // If you run under 
+    // If you run under
     const email = `${emailuser}@${
       (process.env.NODE_ENV === 'development') ? host : host.slice(0, -suffix.length)
     }`;
