@@ -3,6 +3,7 @@ import clientPromise from '@/lib/mongodb';
 import { getSession } from 'next-auth/react';
 import { getUser, UserProps } from '@/lib/api/user';
 import UserProfile from '@/components/user-profile';
+import { bech32 } from 'bech32';
 
 
 interface ProfileProps {
@@ -40,7 +41,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      user
+      user,
+      bech32pubkey: user.nip05pubkey && bech32.encode(
+        'npub',
+        bech32.toWords(Buffer.from(user.nip05pubkey, 'hex'))
+      ),      
     }
   };
 };

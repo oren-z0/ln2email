@@ -29,7 +29,7 @@ export default async function handler(
       (process.env.NODE_ENV === 'development') ? host : host.slice(0, -suffix.length)
     }`;
     const user = await getUser(email);
-    if (!user || !user.verified || !user.bech32pubkey) {
+    if (!user || !user.verified || !user.nip05pubkey) {
       return res.status(404).json({
         reason: 'Not found',
         email
@@ -38,7 +38,7 @@ export default async function handler(
 
     return res.json({
       names: {
-        [name]: user.bech32pubkey,
+        [name]: user.nip05pubkey,
       }
     });
   }

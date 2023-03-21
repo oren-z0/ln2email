@@ -5,7 +5,7 @@ export interface UserProps {
   email: string;
   verified: boolean;
   lightningAddress?: string;
-  bech32pubkey?: string;
+  nip05pubkey?: string;
   unsubscribeAll?: boolean;
 }
 
@@ -33,13 +33,9 @@ export async function getUser(email: string): Promise<UserProps | null> {
   if (!results) {
     return null;
   }
-  const { emailVerified, nip05pubkey, ...userProps } = results;
+  const { emailVerified, ...userProps } = results;
   return {
     ...userProps,
-    bech32pubkey: nip05pubkey && bech32.encode(
-      'npub',
-      bech32.toWords(Buffer.from(nip05pubkey, 'hex'))
-    ),
     verified: Boolean(emailVerified),
   };
 }
