@@ -19,6 +19,10 @@ const nextConfig = {
       {
         source: '/.well-known/lnurlp/:path*',
         destination: '/api/well-known/lnurlp/:path*'
+      },
+      {
+        source: '/.well-known/nostr.json',
+        destination: '/api/well-known/nostr.json'
       }
     ];
   },
