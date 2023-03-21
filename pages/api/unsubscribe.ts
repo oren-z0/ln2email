@@ -22,7 +22,8 @@ export default async function handler(
     await deleteUserSessions(email);
     await updateUser(email, {
       unsubscribeAll: true,
-      lightningAddress: ''
+      lightningAddress: '',
+      nip05pubkey: ''
     });
     return res.status(200).json({});
   }

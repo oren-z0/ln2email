@@ -1,4 +1,5 @@
 import clientPromise from '@/lib/mongodb';
+import { bech32 } from 'bech32';
 
 export interface UserProps {
   email: string;
@@ -23,6 +24,7 @@ export async function getUser(email: string): Promise<UserProps | null> {
         email: 1,
         emailVerified: 1,
         lightningAddress: 1,
+        nip05pubkey: 1,
         unsubscribeAll: 1
       }
     }
@@ -30,9 +32,13 @@ export async function getUser(email: string): Promise<UserProps | null> {
   if (!results) {
     return null;
   }
-  const { emailVerified, ...userProps } = results;
+  const { emailVerified, nip05pubkey, ...userProps } = results;
   return {
     ...userProps,
+    bech32pubkey: nip05pubkey && bech32.encode(
+      'npub',
+      bech32.toWords(Buffer.from(nip05pubkey, 'hex'))
+    ),
     verified: Boolean(emailVerified),
   };
 }
@@ -47,6 +53,7 @@ function ignoreEmptyValues<T>(record: Record<string,T>): Record<string,T> {
 
 interface UpdateUserProps {
   lightningAddress?: string;
+  nip05pubkey?: string;
   unsubscribeAll?: boolean;
 }
 
@@ -72,6 +79,7 @@ export async function deleteUserSessions(email: string) {
 
 export async function updateUser(email: string, {
   lightningAddress,
+  nip05pubkey,
   ...other
 }: UpdateUserProps) {
   const client = await clientPromise;
@@ -84,11 +92,17 @@ export async function updateUser(email: string, {
       $unset: {
         ...lightningAddress === '' && {
           lightningAddress: 1
+        },
+        ...nip05pubkey === '' && {
+          nip05pubkey: 1
         }
       },
       $set: {
         ...lightningAddress && {
           lightningAddress
+        },
+        ...nip05pubkey && {
+          nip05pubkey
         },
         ...other
       }
