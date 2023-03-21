@@ -20,7 +20,6 @@ export default async function handler(
         });
       }
     }
-    // If you run under
     const email = `${emailuser}@${
       (process.env.NODE_ENV === 'development') ? host : host.slice(0, -suffix.length)
     }`;
