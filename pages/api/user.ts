@@ -79,7 +79,7 @@ export default async function handler(
     if (nip05pubkeyBech32) {
       if (nip05pubkeyBech32.length !== nip05pubkeyBech32Length) {
         return res.status(422).json({
-          reason: 'Update failed: Bad NIP-19 public key length, must look like: npub...'
+          reason: 'Update failed: Bad bech32 public key, must look like: npub...'
         });
       }
       try {
@@ -92,7 +92,7 @@ export default async function handler(
       } catch (error) {
         console.error(`Failed to parse nip05pubkeyBech32: ${error}`);
         return res.status(422).json({
-          reason: 'Update failed: Bad NIP-19 public key, must look like: npub...'
+          reason: 'Update failed: Bad bech32 public key, must look like: npub...'
         });
       }
     } else if (nip05pubkeyBech32 === '') {
