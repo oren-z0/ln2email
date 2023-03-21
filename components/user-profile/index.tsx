@@ -363,7 +363,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           <UserProfileCardDescription>
             The NIP-05 address{' '}
             <Address>{user.email}.ln2.email</Address>
-            {' '}will be assigned to public key:
+            {' '}will be assigned to the public key:
           </UserProfileCardDescription>
           <TextInput
             type="text"
