@@ -165,7 +165,7 @@ const CTAWrapper = styled.div`
   flex-direction: row;
 `;
 
-const LightningAddressInput = styled.input`
+const TextInput = styled.input`
   width: 100%;
   border: 1px solid #bbb;
   border-radius: 0.3rem;
@@ -179,7 +179,7 @@ const LightningAddressInput = styled.input`
   }
 `;
 
-const LightningAddressInputSublabel = styled.div`
+const TextInputSublabel = styled.div`
   color: #555;
   font-size: 11px;
   padding: 0 5px;
@@ -252,24 +252,32 @@ const toastOptions = {
 
 export interface UserProfileProps {
   user: UserProps;
+  nip05pubkeyBech32?: string;
 }
 
-export default function UserProfile({ user }: UserProfileProps) {
+export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProps) {
   const [confettiRun, setConfettiRun] = useState(false);
   const [loading, setLoading] = useState(false);
   const [
     savedTargetLightningAddress, setSavedTargetLightningAddress
   ] = useState(user.lightningAddress ?? '');
   const [
+    savedNip05pubkeyBech32, setSavedNip05pubkeyBech32
+  ] = useState(user.lightningAddress ?? '');
+  const [
     targetLightningAddress, setTargetLightningAddress
   ] = useState(user.lightningAddress ?? '');
+  const [
+    targetNip05pubkeyBech32, setTargetNip05pubkeyBech32
+  ] = useState(nip05pubkeyBech32 ?? '');
   const [windowWidth, windowHeight] = useWindowSize();
 
-  const resetTargetLightningAddress = () => {
+  const resetForm = () => {
     setTargetLightningAddress(savedTargetLightningAddress);
+    setTargetNip05pubkeyBech32(savedNip05pubkeyBech32);
   };
 
-  const saveTargetLightningAddress = async () => {
+  const submitForm = async () => {
     setLoading(true);
     try {
       const fetchResponse = await fetch('/api/user', {
@@ -279,6 +287,7 @@ export default function UserProfile({ user }: UserProfileProps) {
         },
         body: JSON.stringify({
           lightningAddress: targetLightningAddress.trim(),
+          nip05pubkeyBech32: targetNip05pubkeyBech32,
         })
       });
       const fetchResponseJson: { reason?: string } = await fetchResponse.json();
@@ -287,21 +296,23 @@ export default function UserProfile({ user }: UserProfileProps) {
         setTargetLightningAddress(savedTargetLightningAddress);
         return;
       }
-      toast.success('Lightning address saved successfully', toastOptions);
+      toast.success('Changes were saved successfully', toastOptions);
       setSavedTargetLightningAddress(targetLightningAddress);
-      if (targetLightningAddress) {
-        setConfettiRun(true);
-      }
+      setSavedNip05pubkeyBech32(targetNip05pubkeyBech32);
+      setConfettiRun(true);
     } catch (error) {
       console.error('Failed to update target lightning address', error);
       toast.error('Unexpected error', toastOptions);
-      setTargetLightningAddress(savedTargetLightningAddress);
+      resetForm();
     } finally {
       setLoading(false);
     }
   };
 
-  const ctaDisabled = loading || (savedTargetLightningAddress === targetLightningAddress);
+  const ctaDisabled = loading || (
+    (savedTargetLightningAddress === targetLightningAddress)
+    && (savedNip05pubkeyBech32 === targetNip05pubkeyBech32)
+  );
 
   const stopConfetti = () => {
     setConfettiRun(false);
@@ -329,32 +340,51 @@ export default function UserProfile({ user }: UserProfileProps) {
       <UserProfileCardGrid>
         <UserProfileCard>
           <UserProfileCardTitle>
-            Lightning Address
+            Lightning
           </UserProfileCardTitle>
           <UserProfileCardDescription>
             All lightning payments to{' '}
             <LightningAddress>{user.email}.ln2.email</LightningAddress>
             {' '}will be redirected to:
           </UserProfileCardDescription>
-          <LightningAddressInput
+          <TextInput
             type="email"
             disabled={loading}
             maxLength={320}
             value={targetLightningAddress}
             onChange={(event) => setTargetLightningAddress(event.target.value)}
           />
-          <LightningAddressInputSublabel>
+          <TextInputSublabel>
             Leave empty to block all payment attempts
-          </LightningAddressInputSublabel>
+          </TextInputSublabel>
+          <UserProfileCardTitle>
+            Nostr
+          </UserProfileCardTitle>
+          <UserProfileCardDescription>
+            The NIP-05 address
+            <LightningAddress>{user.email}.ln2.email</LightningAddress>
+            {' '}will be assigned to public key:
+          </UserProfileCardDescription>
+          <TextInput
+            type="text"
+            disabled={loading}
+            maxLength={63}
+            value={targetNip05pubkeyBech32}
+            onChange={(event) => setTargetNip05pubkeyBech32(event.target.value)}
+            placeholder="npub..."
+          />
+          <TextInputSublabel>
+            Leave empty if you don&apos;t use Nostr
+          </TextInputSublabel>
           <CTAWrapper>
             <CTAPrimary
-              onClick={saveTargetLightningAddress}
+              onClick={submitForm}
               disabled={ctaDisabled}
             >
               { loading ? 'Saving...' : 'Save' }
             </CTAPrimary>
             <CTASecondary
-              onClick={resetTargetLightningAddress}
+              onClick={resetForm}
               disabled={ctaDisabled}
             >
               Reset

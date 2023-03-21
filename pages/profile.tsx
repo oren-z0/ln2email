@@ -8,10 +8,11 @@ import { bech32 } from 'bech32';
 
 interface ProfileProps {
   user: UserProps;
+  nip05pubkeyBech32?: string;
 }
 
-export default function Profile({ user }: ProfileProps) {
-  return <UserProfile user={user} />
+export default function Profile({ user, nip05pubkeyBech32 }: ProfileProps) {
+  return <UserProfile user={user} nip05pubkeyBech32={nip05pubkeyBech32} />
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -42,10 +43,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
     props: {
       user,
-      nip05pubkeyBech32: user.nip05pubkey && bech32.encode(
-        'npub',
-        bech32.toWords(Buffer.from(user.nip05pubkey, 'hex'))
-      ),      
+      ...user.nip05pubkey && {
+        nip05pubkeyBech32: bech32.encode(
+          'npub',
+          bech32.toWords(Buffer.from(user.nip05pubkey, 'hex'))
+        ),  
+      }
     }
   };
 };
