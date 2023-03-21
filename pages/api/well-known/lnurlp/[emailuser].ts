@@ -8,6 +8,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { emailuser } = req.query;
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
   
   if (req.method === 'GET') {
     const host = req.headers.host ?? '';
