@@ -246,6 +246,10 @@ const ConfettiWrapper = styled.div`
   pointer-events: none;
 `;
 
+const ExternalLink = styled.a`
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
 const toastOptions = {
   duration: 4000
 };
@@ -360,13 +364,13 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           <UserProfileCardDescription>
             Don&apos;t have a lightning wallet yet? We recommend choosing one of the providers from
             {' '}
-            <Link
+            <ExternalLink
               href="https://lightningaddress.com/#providers"
               rel="noopener noreferrer"
               target="_blank"
             >
               lightningaddress.com
-            </Link>.
+            </ExternalLink>.
           </UserProfileCardDescription>
           <UserProfileCardTitle>
             Nostr
