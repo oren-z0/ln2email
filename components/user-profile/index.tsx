@@ -331,7 +331,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           Sign out
         </CTASignout>
       </SignoutWrapper>
-      <Link href="/">
+      <Link href="/" rel="noopener noreferrer" target="_blank">
         <Image src="/logo.svg" width={60} height={60} alt="Logo" />
       </Link>
       <PageTitle>Lightning to Email</PageTitle>
@@ -357,6 +357,12 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           <TextInputSublabel>
             Leave empty to block all payment attempts
           </TextInputSublabel>
+          <UserProfileCardDescription>
+            Don&apos;t have a lightning wallet yet? We recommend choosing one of the providers from
+            <Link href="https://lightningaddress.com/#providers">
+              lightningaddress.com
+            </Link>
+          </UserProfileCardDescription>
           <UserProfileCardTitle>
             Nostr
           </UserProfileCardTitle>
