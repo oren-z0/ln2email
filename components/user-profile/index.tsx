@@ -359,13 +359,14 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           </TextInputSublabel>
           <UserProfileCardDescription>
             Don&apos;t have a lightning wallet yet? We recommend choosing one of the providers from
+            {' '}
             <Link
               href="https://lightningaddress.com/#providers"
               rel="noopener noreferrer"
               target="_blank"
             >
               lightningaddress.com
-            </Link>
+            </Link>.
           </UserProfileCardDescription>
           <UserProfileCardTitle>
             Nostr
