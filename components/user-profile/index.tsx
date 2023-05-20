@@ -344,7 +344,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
       <UserProfileCardGrid>
         <UserProfileCard>
           <UserProfileCardTitle>
-            Lightning
+            Bitcoin Lightning
           </UserProfileCardTitle>
           <UserProfileCardDescription>
             All lightning payments to{' '}
