@@ -189,7 +189,7 @@ export default function Home() {
       <Fade triggerOnce direction="up" delay={900}>
         <Description>
           <Bold>
-            Link your email address to your current lightning wallet.
+            Link your email address to your current Bitcoin-Lightning wallet.
           </Bold>
           Get a static lightning address, share it with anyone, and replace the wallet that
           receives the payments at any time.
