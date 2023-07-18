@@ -1,7 +1,9 @@
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGODB_URI as string; // your mongodb connection string
-const options = {};
+const options = {
+  maxPoolSize: 10,
+};
 
 let client;
 let clientPromise: Promise<any>;
