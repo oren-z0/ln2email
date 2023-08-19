@@ -3,6 +3,7 @@ import { MongoClient } from 'mongodb';
 const uri = process.env.MONGODB_URI as string; // your mongodb connection string
 const options = {
   maxPoolSize: 10,
+  maxIdleTimeMS: 60_000,
 };
 
 let client;
