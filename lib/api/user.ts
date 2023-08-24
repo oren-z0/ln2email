@@ -1,5 +1,4 @@
 import clientPromise from '@/lib/mongodb';
-import { bech32 } from 'bech32';
 
 export interface UserProps {
   email: string;
