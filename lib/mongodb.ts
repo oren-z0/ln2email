@@ -6,7 +6,7 @@ const options = {
   maxIdleTimeMS: 60_000,
 };
 
-interface DatabaseClient {
+export interface DatabaseClient {
   client: any;
   persist: boolean;
 }
