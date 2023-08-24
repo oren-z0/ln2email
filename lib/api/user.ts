@@ -1,4 +1,4 @@
-import clientPromise from '@/lib/mongodb';
+import createClient from '@/lib/mongodb';
 
 export interface UserProps {
   email: string;
@@ -14,29 +14,35 @@ export interface ResultProps {
 }
 
 export async function getUser(email: string): Promise<UserProps | null> {
-  const client = await clientPromise;
-  const collection = client.db().collection('users');
-  const results = await collection.findOne(
-    { email },
-    {
-      projection: {
-        _id: 0,
-        email: 1,
-        emailVerified: 1,
-        lightningAddress: 1,
-        nip05pubkey: 1,
-        unsubscribeAll: 1
+  const { client, persist } = await createClient();
+  try {
+    const collection = client.db().collection('users');
+    const results = await collection.findOne(
+      { email },
+      {
+        projection: {
+          _id: 0,
+          email: 1,
+          emailVerified: 1,
+          lightningAddress: 1,
+          nip05pubkey: 1,
+          unsubscribeAll: 1
+        }
       }
+    );
+    if (!results) {
+      return null;
     }
-  );
-  if (!results) {
-    return null;
+    const { emailVerified, ...userProps } = results;
+    return {
+      ...userProps,
+      verified: Boolean(emailVerified),
+    };
+  } finally {
+    if (!persist) {
+      void client.close();
+    }
   }
-  const { emailVerified, ...userProps } = results;
-  return {
-    ...userProps,
-    verified: Boolean(emailVerified),
-  };
 }
 
 function ignoreEmptyValues<T>(record: Record<string,T>): Record<string,T> {
@@ -54,23 +60,29 @@ interface UpdateUserProps {
 }
 
 export async function deleteUserSessions(email: string) {
-  const client = await clientPromise;
-  const usersCollection = client.db().collection('users');
-  const userDocument = await usersCollection.findOne(
-    { email },
-    {
-      projection: {
-        _id: 1,
+  const { client, persist } = await createClient();
+  try {
+    const usersCollection = client.db().collection('users');
+    const userDocument = await usersCollection.findOne(
+      { email },
+      {
+        projection: {
+          _id: 1,
+        }
       }
+    );
+    if (!userDocument) {
+      return;
     }
-  );
-  if (!userDocument) {
-    return;
+    const sessionsCollection = client.db().collection('sessions');
+    await sessionsCollection.deleteMany({
+      userId: userDocument._id
+    });
+  } finally {
+    if (!persist) {
+      void client.close();
+    }
   }
-  const sessionsCollection = client.db().collection('sessions');
-  await sessionsCollection.deleteMany({
-    userId: userDocument._id
-  });
 }
 
 export async function updateUser(email: string, {
@@ -78,30 +90,37 @@ export async function updateUser(email: string, {
   nip05pubkey,
   ...other
 }: UpdateUserProps) {
-  const client = await clientPromise;
-  const collection = client.db().collection('users');
-  await collection.updateOne(
-    {
-      email
-    },
-    ignoreEmptyValues({
-      $unset: {
-        ...lightningAddress === '' && {
-          lightningAddress: 1
-        },
-        ...nip05pubkey === '' && {
-          nip05pubkey: 1
-        }
+  const { client, persist } = await createClient();
+  try {
+    const collection = client.db().collection('users');
+    await collection.updateOne(
+      {
+        email
       },
-      $set: {
-        ...lightningAddress && {
-          lightningAddress
+      ignoreEmptyValues({
+        $unset: {
+          ...lightningAddress === '' && {
+            lightningAddress: 1
+          },
+          ...nip05pubkey === '' && {
+            nip05pubkey: 1
+          }
         },
-        ...nip05pubkey && {
-          nip05pubkey
-        },
-        ...other
-      }
-    })
-  )
+        $set: {
+          ...lightningAddress && {
+            lightningAddress
+          },
+          ...nip05pubkey && {
+            nip05pubkey
+          },
+          ...other
+        }
+      })
+    );
+  } finally {
+    if (!persist) {
+      void client.close();
+    }
+  }
+
 }
