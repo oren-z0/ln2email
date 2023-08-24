@@ -8,7 +8,6 @@
     "update-tlds": "node scripts/update-tlds.js"
   },
   "dependencies": {
-    "@next-auth/mongodb-adapter": "^1.1.1",
     "@react-hook/window-size": "^3.1.1",
     "bech32": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
