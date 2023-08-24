@@ -1,5 +1,4 @@
 import { GetServerSideProps } from 'next';
-import clientPromise from '@/lib/mongodb';
 import { getSession } from 'next-auth/react';
 import { getUser, UserProps } from '@/lib/api/user';
 import UserProfile from '@/components/user-profile';
@@ -24,13 +23,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         destination: '/'
       }
     };
-  }
-
-  try {
-    await clientPromise;
-  } catch (e: any) {
-    console.error(e);
-    throw new Error('Connection limit reached. Please try again later.');
   }
 
   const user = await getUser(session.user.email);
