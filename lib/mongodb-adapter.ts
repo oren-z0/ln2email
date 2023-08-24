@@ -90,7 +90,7 @@ export function MongoDBAdapter(
   const { from, to } = format
 
   const createDb = async (): Promise<Db> => {
-    const { client, persist } = await createClient();
+    const { client, close } = await createClient();
     const _db = client.db(options.databaseName);
     const c = { ...defaultCollections, ...collections };
     return {
@@ -98,11 +98,7 @@ export function MongoDBAdapter(
       A: _db.collection(c.Accounts),
       S: _db.collection(c.Sessions),
       V: _db.collection(c?.VerificationTokens),
-      close: () => {
-        if (!persist) {
-          void client.close();
-        }
-      },
+      close,
     };
   };
 

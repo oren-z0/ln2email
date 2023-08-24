@@ -8,7 +8,7 @@ const options = {
 
 export interface DatabaseClient {
   client: any;
-  persist: boolean;
+  close: () => void;
 }
 
 let createClient: () => Promise<DatabaseClient>;
@@ -31,15 +31,17 @@ if (process.env.NODE_ENV === 'development') {
   const globalMongoClientPromise = global._mongoClientPromise;
   createClient = async () => ({
     client: await globalMongoClientPromise,
-    persist: true,
+    close: () => {},
   });
 } else {
   // In production mode, create a new client each time.
   createClient = async () => {
-    const client = new MongoClient(uri, options);
+    const client = await (new MongoClient(uri, options)).connect();
     return {
-      client: await client.connect(),
-      persist: false,
+      client,
+      close: () => {
+        void client.close();
+      },
     };
   };
 }

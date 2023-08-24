@@ -14,7 +14,7 @@ export interface ResultProps {
 }
 
 export async function getUser(email: string): Promise<UserProps | null> {
-  const { client, persist } = await createClient();
+  const { client, close } = await createClient();
   try {
     const collection = client.db().collection('users');
     const results = await collection.findOne(
@@ -39,9 +39,7 @@ export async function getUser(email: string): Promise<UserProps | null> {
       verified: Boolean(emailVerified),
     };
   } finally {
-    if (!persist) {
-      void client.close();
-    }
+    close();
   }
 }
 
@@ -60,7 +58,7 @@ interface UpdateUserProps {
 }
 
 export async function deleteUserSessions(email: string) {
-  const { client, persist } = await createClient();
+  const { client, close } = await createClient();
   try {
     const usersCollection = client.db().collection('users');
     const userDocument = await usersCollection.findOne(
@@ -79,9 +77,7 @@ export async function deleteUserSessions(email: string) {
       userId: userDocument._id
     });
   } finally {
-    if (!persist) {
-      void client.close();
-    }
+    close();
   }
 }
 
@@ -90,7 +86,7 @@ export async function updateUser(email: string, {
   nip05pubkey,
   ...other
 }: UpdateUserProps) {
-  const { client, persist } = await createClient();
+  const { client, close } = await createClient();
   try {
     const collection = client.db().collection('users');
     await collection.updateOne(
@@ -118,9 +114,7 @@ export async function updateUser(email: string, {
       })
     );
   } finally {
-    if (!persist) {
-      void client.close();
-    }
+    close();
   }
 
 }
