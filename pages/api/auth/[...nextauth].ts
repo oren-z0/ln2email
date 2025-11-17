@@ -20,9 +20,11 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, user }) {
-      Object.assign(session, {
-        userId: user.id,
-      });
+      if (user?.id) {
+        Object.assign(session, {
+          userId: user.id,
+        });
+      }
       return session;
     },
     async signIn({ user }) {
