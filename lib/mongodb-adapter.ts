@@ -103,7 +103,7 @@ export function MongoDBAdapter(
   };
 
   return {
-    async createUser(data) {
+    async createUser(data: AdapterUser) {
       const user = to<AdapterUser>(data);
       const db = await createDb();
       try {
@@ -113,27 +113,27 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async getUser(id) {
+    async getUser(id: string) {
       const db = await createDb();
       try {
         const user = await db.U.findOne({ _id: _id(id) });
         if (!user) return null;
-        return from<AdapterUser>(user);  
+        return from<AdapterUser>(user);
       } finally {
         db.close();
       }
     },
-    async getUserByEmail(email) {
+    async getUserByEmail(email: string) {
       const db = await createDb();
       try {
         const user = await db.U.findOne({ email });
         if (!user) return null;
-        return from<AdapterUser>(user);  
+        return from<AdapterUser>(user);
       } finally {
         db.close();
       }
     },
-    async getUserByAccount(provider_providerAccountId) {
+    async getUserByAccount(provider_providerAccountId: { provider: string; providerAccountId: string }) {
       const db = await createDb();
       try {
         const account = await db.A.findOne(provider_providerAccountId);
@@ -145,8 +145,8 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async updateUser(data) {
-      const { _id, ...user } = to<AdapterUser>(data);
+    async updateUser(data: Partial<AdapterUser> & Pick<AdapterUser, "id">) {
+      const { _id, ...user } = to<AdapterUser>(data as AdapterUser);
 
       const db = await createDb();
 
@@ -161,7 +161,7 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async deleteUser(id) {
+    async deleteUser(id: string) {
       const userId = _id(id);
       const m = await createDb();
       try {
@@ -169,12 +169,12 @@ export function MongoDBAdapter(
           m.A.deleteMany({ userId: userId as any }),
           m.S.deleteMany({ userId: userId as any }),
           m.U.deleteOne({ _id: userId }),
-        ]);  
+        ]);
       } finally {
         m.close();
       }
     },
-    linkAccount: async (data) => {
+    linkAccount: async (data: AdapterAccount) => {
       const account = to<AdapterAccount>(data);
       const db = await createDb();
       try {
@@ -184,7 +184,7 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async unlinkAccount(provider_providerAccountId) {
+    async unlinkAccount(provider_providerAccountId: { provider: string; providerAccountId: string }) {
       const db = await createDb();
       try {
         const { value: account } = await db.A.findOneAndDelete(provider_providerAccountId);
@@ -193,7 +193,7 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async getSessionAndUser(sessionToken) {
+    async getSessionAndUser(sessionToken: string) {
       const db = await createDb();
       try {
         const session = await db.S.findOne({ sessionToken });
@@ -208,18 +208,18 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async createSession(data) {
+    async createSession(data: AdapterSession) {
       const session = to<AdapterSession>(data);
       const db = await createDb();
       try {
         await db.S.insertOne(session);
-        return from<AdapterSession>(session);  
+        return from<AdapterSession>(session);
       } finally {
         db.close();
       }
     },
-    async updateSession(data) {
-      const { _id, ...session } = to<AdapterSession>(data);
+    async updateSession(data: Partial<AdapterSession> & Pick<AdapterSession, "sessionToken">) {
+      const { _id, ...session } = to<AdapterSession>(data as AdapterSession);
       const db = await createDb();
       try {
         const result = await db.S.findOneAndUpdate(
@@ -227,23 +227,23 @@ export function MongoDBAdapter(
           { $set: session },
           { returnDocument: "after" },
         );
-        return from<AdapterSession>(result.value!);  
+        return from<AdapterSession>(result.value!);
       } finally {
         db.close();
       }
     },
-    async deleteSession(sessionToken) {
+    async deleteSession(sessionToken: string) {
       const db = await createDb();
       try {
         const { value: session } = await db.S.findOneAndDelete({
           sessionToken,
         });
-        return from<AdapterSession>(session!);  
+        return from<AdapterSession>(session!);
       } finally {
         db.close();
       }
     },
-    async createVerificationToken(data) {
+    async createVerificationToken(data: VerificationToken) {
       const db = await createDb();
       try {
         await db.V.insertOne(to(data));
@@ -252,7 +252,7 @@ export function MongoDBAdapter(
         db.close();
       }
     },
-    async useVerificationToken(identifier_token) {
+    async useVerificationToken(identifier_token: { identifier: string; token: string }) {
       const db = await createDb();
       try {
         const { value: verificationToken } = await db.V.findOneAndDelete(identifier_token);
@@ -260,7 +260,7 @@ export function MongoDBAdapter(
         if (!verificationToken) return null;
         // @ts-expect-error
         delete verificationToken._id;
-        return verificationToken;  
+        return verificationToken;
       } finally {
         db.close();
       }

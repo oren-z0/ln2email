@@ -1,4 +1,4 @@
-import { css, FlattenInterpolation, DefaultTheme } from 'styled-components';
+import { css } from 'styled-components';
 
 // Media Queries
 // Leverage the `media` function inside the theme
@@ -21,4 +21,4 @@ export const media = Object.fromEntries(
       }
     `,
   ])
-) as Record<keyof typeof sizes, (first: any, ...args: any) => FlattenInterpolation<DefaultTheme>>;
+) as Record<keyof typeof sizes, (first: any, ...args: any) => any>;
