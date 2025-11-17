@@ -204,6 +204,9 @@ export function MongoDBAdapter(
           user: from<AdapterUser>(user),
           session: from<AdapterSession>(session),
         };
+      } catch (error) {
+        console.error('MongoDB adapter getSessionAndUser error:', error);
+        return null;
       } finally {
         db.close();
       }

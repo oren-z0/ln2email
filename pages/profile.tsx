@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 import { getUser, UserProps } from '@/lib/api/user';
 import UserProfile from '@/components/user-profile';
 import { bech32 } from 'bech32';
@@ -14,8 +15,8 @@ export default function Profile({ user, nip05pubkeyBech32 }: ProfileProps) {
   return <UserProfile user={user} nip05pubkeyBech32={nip05pubkeyBech32} />
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
   if (!session || !session.user?.email) {
     return {
       redirect: {
