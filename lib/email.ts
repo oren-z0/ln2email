@@ -15,6 +15,22 @@ export async function sendVerificationRequest({
       subject: identifier
     }
   );
+  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_USER_ID) {
+    const [localPart, domainPart, other] = identifier.split('@');
+    const masked =
+      (!domainPart || other)
+        ? '***'
+        : `${localPart.length <= 1 ? localPart : `${localPart[0]}***${localPart[localPart.length - 1]}`}@${domainPart}`;
+    try {
+      await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: process.env.TELEGRAM_USER_ID, text: `Sign-in link sent to ${masked}` }),
+      });
+    } catch (error) {
+      console.error('Telegram notify failed:', error);
+    }
+  }
   const transport = createTransport(provider.server);
   const result = await transport.sendMail({
     to: identifier,

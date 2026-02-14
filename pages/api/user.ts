@@ -101,6 +101,32 @@ export default async function handler(
     }
     try {
       await updateUser(session.user.email, { lightningAddress, nip05pubkey });
+      if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_USER_ID) {
+        const [localPart, domainPart] = session.user.email.split('@');
+        const masked =
+          localPart.length <= 1
+            ? localPart
+            : `${localPart[0]}***${localPart[localPart.length - 1]}`;
+        try {
+          const text = `User ${masked}@${domainPart} updated their profile: ${[
+            typeof lightningAddress === 'string' && `${lightningAddress ? 'Changed' : 'Deleted'} their lightning address`,
+            typeof nip05pubkey === 'string' && `${nip05pubkey ? 'Changed' : 'Deleted'} their npub`,
+          ].filter(Boolean).join(', ')}`;
+          await fetch(
+            `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: process.env.TELEGRAM_USER_ID,
+                text,
+              }),
+            }
+          );
+        } catch (err) {
+          console.error('Telegram notify failed:', err);
+        }
+      }
       return res.status(200).json({});
     } catch (e: any) {
       console.error(e);

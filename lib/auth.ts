@@ -26,7 +26,7 @@ export const authOptions = {
       }
       return session;
     },
-    async signIn({ user }: { user: any }) {
+    async signIn({ user, email: emailParam }: { user: any; email?: { verificationRequest?: boolean } }) {
       try {
         if (!user.email) {
           return './?error=default';
@@ -82,6 +82,28 @@ export const authOptions = {
       } catch (error) {
         console.error(`Auth signin failed: ${error}`);
         return './?error=default';
+      }
+      if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_USER_ID) {
+        const [localPart, domainPart] = user.email.split('@');
+        const masked =
+          localPart.length <= 1
+            ? localPart
+            : `${localPart[0]}***${localPart[localPart.length - 1]}`;
+        try {
+          await fetch(
+            `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: process.env.TELEGRAM_USER_ID,
+                text: `Email login (${emailParam?.verificationRequest ? 'sending link' : 'link clicked'}): ${masked}@${domainPart}`,
+              }),
+            }
+          );
+        } catch (err) {
+          console.error('Telegram notify failed:', err);
+        }
       }
       return true;
     }
