@@ -38,6 +38,7 @@ export async function sendVerificationRequest({
     subject: `Sign in to ${host}`,
     text: text({ url, host, token }),
     html: html({ url, host, token, theme }),
+    replyTo: 'support@ln2.email',
   });
   const failed = result.rejected.concat(result.pending).filter(Boolean);
   if (failed.length) {
