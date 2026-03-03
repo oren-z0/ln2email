@@ -31,7 +31,7 @@ export async function sendVerificationRequest({
       console.error('Telegram notify failed:', error);
     }
   }
-  console.info('Creating transport');
+  console.info(`Creating transport: ${typeof provider.server}`);
   const transport = createTransport(provider.server);
   console.info('Sending email');
   try {
