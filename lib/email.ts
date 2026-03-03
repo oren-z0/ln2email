@@ -31,7 +31,9 @@ export async function sendVerificationRequest({
       console.error('Telegram notify failed:', error);
     }
   }
+  console.info('Creating transport');
   const transport = createTransport(provider.server);
+  console.info('Sending email');
   const result = await transport.sendMail({
     to: identifier,
     from: provider.from,
@@ -42,8 +44,10 @@ export async function sendVerificationRequest({
   });
   const failed = result.rejected.concat(result.pending).filter(Boolean);
   if (failed.length) {
+    console.error(`Email(s) (${failed.join(", ")}) could not be sent`);
     throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
   }
+  console.info('Email sent successfully');
 }
 
 interface TextParams {
