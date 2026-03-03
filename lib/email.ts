@@ -34,18 +34,23 @@ export async function sendVerificationRequest({
   console.info('Creating transport');
   const transport = createTransport(provider.server);
   console.info('Sending email');
-  const result = await transport.sendMail({
-    to: identifier,
-    from: provider.from,
-    subject: `Sign in to ${host}`,
-    text: text({ url, host, token }),
-    html: html({ url, host, token, theme }),
-    replyTo: 'support@ln2.email',
-  });
-  const failed = result.rejected.concat(result.pending).filter(Boolean);
-  if (failed.length) {
-    console.error(`Email(s) (${failed.join(", ")}) could not be sent`);
-    throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+  try {
+    const result = await transport.sendMail({
+      to: identifier,
+      from: provider.from,
+      subject: `Sign in to ${host}`,
+      text: text({ url, host, token }),
+      html: html({ url, host, token, theme }),
+      replyTo: 'support@ln2.email',
+    });
+    const failed = result.rejected.concat(result.pending).filter(Boolean);
+    if (failed.length) {
+      console.error(`Email(s) (${failed.join(", ")}) could not be sent`);
+      throw new Error(`Email(s) (${failed.join(", ")}) could not be sent`)
+    }
+  } catch (error) {
+    console.error('Email send failed:', error);
+    throw error;
   }
   console.info('Email sent successfully');
 }
