@@ -214,7 +214,7 @@ export default function Unsubscribe({ email, token }: UnsubscribeProps) {
             {' '}and unsubscribe from all future emails.
             This includes unsubscribing from the sign-in emails.
             To reactivate the user, you will have to contact
-            {' '}<EmailLink href="mailto:support@ln2.email">support@ln2.email</EmailLink>.
+            {' '}<EmailLink href={`mailto:${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}`}>{process.env.NEXT_PUBLIC_SUPPORT_EMAIL}</EmailLink>.
           </UnsubscribeCardDescription>
           <CTAWrapper>
             <CTAPrimary

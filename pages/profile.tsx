@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         nip05pubkeyBech32: bech32.encode(
           'npub',
           bech32.toWords(Buffer.from(user.nip05pubkey, 'hex'))
-        ),  
+        ),
       }
     }
   };

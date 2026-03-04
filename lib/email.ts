@@ -41,7 +41,7 @@ export async function sendVerificationRequest({
       subject: `Sign in to ${host}`,
       text: text({ url, host, token }),
       html: html({ url, host, token, theme }),
-      replyTo: 'support@ln2.email',
+      replyTo: process.env.NEXT_PUBLIC_SUPPORT_EMAIL,
     });
     const failed = result.rejected.concat(result.pending).filter(Boolean);
     if (failed.length) {
@@ -124,7 +124,7 @@ function html({ url, host, token, theme }: HtmlParams) {
         >Unsubscribe</a>
         <a
           style="margin: 0 5px; font-size: 14px; line-height: 20px; font-family: Helvetica, Arial, sans-serif; color: ${color.text};"
-          href="mailto:support@ln2.email"
+          href="mailto:${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}"
         >Support</a>
       </td>
     </tr>
@@ -138,6 +138,6 @@ function text({ url, host, token }: TextParams) {
   return [
     `Sign in to ${host}\n${url}\n\n`,
     `Unsubscribe:\n${process.env.NODE_ENV === 'development' ? 'http' : 'https'}://${host}/unsubscribe/${token}\n\n`,
-    `Support Email:\nsupport@ln2.email`
+    `Support Email:\n${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}`
   ].join('');
 }

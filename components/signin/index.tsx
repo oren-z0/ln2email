@@ -17,7 +17,7 @@ const errors = new Map([
   ['SessionRequired', 'Please sign in to access this page.'],
   ['UnsupportedTld', 'Unsupport domain suffix'],
   ['FailedToRegisterTld', 'Failed to register domain'],
-  ['Unsubscribed', 'User has unsubscribed from all emails, contact support@ln2.email.']
+  ['Unsubscribed', `User has unsubscribed from all emails, contact ${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}.`]
 ]);
 
 interface InternalProvider {

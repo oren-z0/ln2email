@@ -296,7 +296,7 @@ export default function Home() {
             Twitter
           </FooterLink>
           <FooterLink
-            href="mailto:support@ln2.email"
+            href={`mailto:${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}`}
             target="_blank"
             rel="noreferrer noopener"
           >
