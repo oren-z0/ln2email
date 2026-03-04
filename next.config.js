@@ -30,7 +30,7 @@ const nextConfig = {
     return [
       {
         source: '/((?!.well-known/).*)',
-        destination: 'https://ln2.email',
+        destination: `https://${process.env.NEXT_PUBLIC_DOMAIN}`,
         permanent: true,
         has: [{
           type: 'host',

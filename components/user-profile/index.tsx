@@ -348,7 +348,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           </UserProfileCardTitle>
           <UserProfileCardDescription>
             All lightning payments to{' '}
-            <Address>{user.email}.ln2.email</Address>
+            <Address>{user.email}.{process.env.NEXT_PUBLIC_DOMAIN}</Address>
             {' '}will be redirected to:
           </UserProfileCardDescription>
           <TextInput
@@ -377,7 +377,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
           </UserProfileCardTitle>
           <UserProfileCardDescription>
             The NIP-05 address{' '}
-            <Address>{user.email}.ln2.email</Address>
+            <Address>{user.email}.{process.env.NEXT_PUBLIC_DOMAIN}</Address>
             {' '}will be assigned to the public key:
           </UserProfileCardDescription>
           <TextInput

@@ -8,9 +8,9 @@ const defaultMetaProps = {
   name: 'LN2EMAIL',
   title: 'Lightning to Email',
   description:
-    'Redirect lightning payments from your email address + ".ln2.email" to your current lightning wallet.',
-  ogImage: 'https://ln2.email/og.png',
-  ogUrl: 'https://ln2.email'
+    `Redirect lightning payments from your email address + ".${process.env.NEXT_PUBLIC_DOMAIN}" to your current lightning wallet.`,
+  ogImage: `https://${process.env.NEXT_PUBLIC_DOMAIN}/og.png`,
+  ogUrl: `https://${process.env.NEXT_PUBLIC_DOMAIN}`
 };
 
 const Wrapper = styled.div`

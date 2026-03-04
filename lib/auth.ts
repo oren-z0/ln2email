@@ -12,7 +12,7 @@ export const authOptions = {
   providers: [
     EmailProvider({
       server: process.env.SMTP_SERVER,
-      from: 'no-reply@ln2.email',
+      from: process.env.NEXT_PUBLIC_SUPPORT_EMAIL,
       maxAge: 600,
       sendVerificationRequest,
     }),
@@ -45,7 +45,7 @@ export const authOptions = {
           return './?error=UnsupportedTld';
         }
         if (process.env.NODE_ENV !== 'development') {
-          const subdomain = `*.${domainSuffix}.ln2.email`;
+          const subdomain = `*.${domainSuffix}.${process.env.NEXT_PUBLIC_DOMAIN}`;
           const domainResponse = await fetch(
             `https://api.vercel.com/v9/projects/${process.env.PROJECT_ID_VERCEL}/domains/${subdomain}`,
             {
@@ -118,7 +118,7 @@ export const authOptions = {
   theme: {
     brandColor: '#F7931A',
     logo: `${
-      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://ln2.email'
+      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : `https://${process.env.NEXT_PUBLIC_DOMAIN}`
     }/logo.svg`
   },
 };

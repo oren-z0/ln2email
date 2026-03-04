@@ -203,7 +203,7 @@ export default function Home() {
           {
             session?.user?.email ? (
               <LoopRowTitle>
-                {session.user.email}.ln2.email
+                {session.user.email}.{process.env.NEXT_PUBLIC_DOMAIN}
               </LoopRowTitle>
             ) : (
               <LoopRowWrapper>
@@ -217,7 +217,7 @@ export default function Home() {
                     "icloud.com",
                   ]}
                 />
-                <FixedTextPart>.ln2.email</FixedTextPart>
+                <FixedTextPart>.{process.env.NEXT_PUBLIC_DOMAIN}</FixedTextPart>
               </LoopRowWrapper>
             )
           }

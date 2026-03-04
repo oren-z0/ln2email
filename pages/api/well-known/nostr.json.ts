@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getUser } from '@/lib/api/user';
 
-const suffix = '.ln2.email';
+const suffix = `.${process.env.NEXT_PUBLIC_DOMAIN}`;
 
 export default async function handler(
   req: NextApiRequest,
