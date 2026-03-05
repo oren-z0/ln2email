@@ -15,6 +15,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       csrfToken,
       error: context.query.error ?? '',
       callbackUrl: context.query.callbackUrl ?? '',
+      turnstileSiteKey: process.env.TURNSTILE_SITE_KEY ?? null,
     },
   }
 };

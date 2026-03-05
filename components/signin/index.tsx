@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Script from 'next/script';
 
 const defaultError = 'Unable to sign in.';
 
@@ -17,7 +18,8 @@ const errors = new Map([
   ['SessionRequired', 'Please sign in to access this page.'],
   ['UnsupportedTld', 'Unsupport domain suffix'],
   ['FailedToRegisterTld', 'Failed to register domain'],
-  ['Unsubscribed', `User has unsubscribed from all emails, contact ${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}.`]
+  ['Unsubscribed', `User has unsubscribed from all emails, contact ${process.env.NEXT_PUBLIC_SUPPORT_EMAIL}.`],
+  ['BotDetected', 'Bot verification failed. Please try again.']
 ]);
 
 interface InternalProvider {
@@ -33,6 +35,7 @@ export interface SigninPageProps {
   callbackUrl: string;
   error: string;
   email?: string;
+  turnstileSiteKey?: string | null;
 }
 
 export default function SigninPage({
@@ -41,6 +44,7 @@ export default function SigninPage({
   callbackUrl,
   error,
   email,
+  turnstileSiteKey,
 }: SigninPageProps) {
   // We only want to render providers
   const providersToRender = providers.filter((provider) => {
@@ -50,6 +54,13 @@ export default function SigninPage({
   const errorMessage = error && (errors.get(error) ?? defaultError);
 
   return (
+    <>
+    {turnstileSiteKey && (
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="lazyOnload"
+      />
+    )}
     <div className="signin-page">
       <div className="signin">
         <Image src="/logo.svg" width="80" height="80" alt="Logo" />
@@ -94,6 +105,12 @@ export default function SigninPage({
                     placeholder="email@example.com"
                     required
                   />
+                  {turnstileSiteKey && (
+                    <div
+                      className="cf-turnstile"
+                      data-sitekey={turnstileSiteKey}
+                    />
+                  )}
                   <button type="submit">Sign in with {provider.name}</button>
                 </form>
               )}
@@ -104,5 +121,6 @@ export default function SigninPage({
         </div>
       </div>
     </div>
+    </>
   );
 }
