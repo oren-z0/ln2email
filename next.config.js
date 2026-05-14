@@ -1,18 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   reactStrictMode: true,
   images: {
-    domains: [
-      'avatars.githubusercontent.com',
-      'avatar.tobi.sh',
-      'cloudflare-ipfs.com',
-      'loremflickr.com'
+    remotePatterns: [
+      { hostname: 'avatars.githubusercontent.com' },
+      { hostname: 'avatar.tobi.sh' },
+      { hostname: 'cloudflare-ipfs.com' },
+      { hostname: 'loremflickr.com' }
     ]
-  },
-  experimental: {
-    legacyBrowsers: false,
-    browsersListForSwc: true
   },
   async rewrites() {
     return [
