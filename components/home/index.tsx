@@ -270,7 +270,7 @@ export default function Home() {
             session && (
               <CTASecondary
                 href="#"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                   e.preventDefault();
                   signOut();
                 }}

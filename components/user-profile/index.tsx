@@ -327,7 +327,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
       <SignoutWrapper>
         <CTASignout
           href="#"
-          onClick={(e) => {
+          onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
             e.preventDefault();
             signOut();
           }}
