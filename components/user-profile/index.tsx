@@ -356,7 +356,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
             disabled={loading}
             maxLength={320}
             value={targetLightningAddress}
-            onChange={(event) => setTargetLightningAddress(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTargetLightningAddress(event.target.value)}
           />
           <TextInputSublabel>
             Leave empty to block all payment attempts
@@ -385,7 +385,7 @@ export default function UserProfile({ user, nip05pubkeyBech32 }: UserProfileProp
             disabled={loading}
             maxLength={63}
             value={targetNip05pubkeyBech32}
-            onChange={(event) => setTargetNip05pubkeyBech32(event.target.value)}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setTargetNip05pubkeyBech32(event.target.value)}
             placeholder="npub..."
           />
           <TextInputSublabel>
