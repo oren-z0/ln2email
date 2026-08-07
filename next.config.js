@@ -2,12 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      { hostname: 'avatars.githubusercontent.com' },
-      { hostname: 'avatar.tobi.sh' },
-      { hostname: 'cloudflare-ipfs.com' },
-      { hostname: 'loremflickr.com' }
-    ]
+    remotePatterns: []
   },
   async rewrites() {
     return [
