@@ -19,13 +19,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        // Skip /.well-known and other "/." probe paths (those get 404 from proxy.ts)
-        source: '/((?!\\.).*)',
+        source: '/',
         destination: `https://${process.env.NEXT_PUBLIC_DOMAIN}`,
         permanent: true,
         has: [{
           type: 'host',
-          value: '(.*\.ln2\.email)'
+          value: `www.${process.env.NEXT_PUBLIC_DOMAIN}`
         }]
       }
     ];
