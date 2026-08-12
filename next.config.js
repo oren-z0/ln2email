@@ -19,7 +19,8 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/((?!.well-known/).*)',
+        // Skip /.well-known and other "/." probe paths (those get 404 from proxy.ts)
+        source: '/((?!\\.).*)',
         destination: `https://${process.env.NEXT_PUBLIC_DOMAIN}`,
         permanent: true,
         has: [{
